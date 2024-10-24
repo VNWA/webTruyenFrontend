@@ -52,7 +52,7 @@
             <div class="flex items-center justify-start gap-4 text-white font-bold mb-3">
               <div>Thể Loại: </div>
               <div>
-                <div v-if="product.types.length > 0" v-for="(item, index) in product.types" :key="index">
+                <div v-if="product.types.length > 0" v-for="(item, index) in product.types" :key="index" class="flex items-center justify-start gap-4 flex-wrap">
                   <NuxtLink :to="'/the-loai-' + item.slug">
                     <span class="bg-white text-black px-3 hover:bg-blue-500 hover:text-white">
                       {{ item.name }}
