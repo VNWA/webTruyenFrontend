@@ -5,26 +5,26 @@
     <Meta name="og:title" content="Truyện tranh mới nhất" />
 
     <NuxtLayout>
-        <div v-if="loading">Loading...</div>
-        <div v-else>
-          <div>
-            <PageTitle>Truyện mới nhất</PageTitle>
+      <div v-if="loading">Loading...</div>
+      <div v-else>
+        <div>
+          <PageTitle>Truyện mới nhất</PageTitle>
+        </div>
+        <div class="mt-5 mb-14">
+          <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
+            <div class="col-span-1" v-for="item in products.data" :key="item.id">
+              <NuxtLink :to="'/truyen/' + item.slug">
+                <ItemProductNormal :dataProduct="item" />
+              </NuxtLink>
+            </div>
           </div>
-          <div class="mt-5 mb-14">
-            <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
-              <div class="col-span-1" v-for="item in products.data" :key="item.id">
-                <NuxtLink :to="'/truyen/' + item.slug">
-                  <ItemProductNormal :dataProduct="item" />
-                </NuxtLink>
-              </div>
-            </div>
-            <div class="flex items-center justify-center mt-10 mb-3">
+          <div class="flex items-center justify-center mt-10 mb-3" v-if="products.last_page > 1">
 
-              <Pagination :urlPage="'/truyen'" :totalPage="products.last_page" :current_page="products.current_page"
-                @change-page="handleChangePage" />
-            </div>
+            <Pagination :urlPage="'/truyen'" :totalPage="products.last_page" :current_page="products.current_page"
+              @change-page="handleChangePage" />
           </div>
         </div>
+      </div>
     </NuxtLayout>
   </div>
 </template>

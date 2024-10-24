@@ -21,7 +21,7 @@
               </NuxtLink>
             </div>
           </div>
-          <div class="flex items-center justify-center mt-10 mb-3">
+          <div class="flex items-center justify-center mt-10 mb-3" v-if="products.last_page > 1">
 
             <Pagination :urlPage="'/quoc-gia-' + route.params.slug" :totalPage="products.last_page"
               :current_page="products.current_page" @change-page="handleChangePage" />
