@@ -31,11 +31,11 @@ export default defineNuxtConfig({
     format: ['webp']
   },
   site: {
-    url: 'https://localhost:300',
+    url: 'https://main.d3iqgblvocdgo2.amplifyapp.com',
   },
   runtimeConfig: {
     public: {
-      apiBase: 'http://127.0.0.1:8000/api/v1',
+      apiBase: 'https://demo1.vinawebapp.com/api/v1',
     },
   },
   css: [
