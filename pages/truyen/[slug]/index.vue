@@ -79,12 +79,11 @@
                   </NuxtLink>
 
                 </div>
-                <div>
-                  <NuxtLink :to="'/truyen/' + product.slug + '/' + product.episodes[0].slug">
+                <div v-if="product.episodes.length >1">
+                  <NuxtLink :to="'/truyen/' + product.slug + '/' + product.episodes[product.episodes.length-1].slug">
                     <button
                       class="text-white bg-blue-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-blue-500/50">
                       Đọc từ đầu
-
                     </button>
                   </NuxtLink>
                 </div>
