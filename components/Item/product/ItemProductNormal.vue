@@ -2,36 +2,38 @@
     <div>
         <div class="relative product-item" v-if="dataProduct">
             <div class="logo transition-all duration-300">
-
-                <NuxtImg quality="80" format="webp" :src="dataProduct.url_avatar"
-                    class="transition ease-in-out delay-150 bg-blue-500 	 w-100 duration-300" loading="lazy"
-                    alt="webtoonx" width="200" height="150" />
-                <div
-                    class="absolute w-full h-full bg-black/5material-symbols-light:eye-tracking0 flex items-center justify-center play-icon   transition-all duration-150 delay-100	">
-                    <Icon name="material-symbols-light:eye-tracking" class="text-white transition-all duration-300" />
-                </div>
-                <div class="absolute left-0 top-0" v-if="dataProduct.highlight == 1">
-                    <div class="bg-red-600 uppercase px-2 py-1 z-20	  font-bold text-white">
-                        Nổi bật
+                <NuxtLink :to="'/truyen/' + dataProduct.slug">
+                    <NuxtImg quality="80" format="webp" :src="dataProduct.url_avatar"
+                        class="transition ease-in-out delay-150 bg-blue-500 	 w-100 duration-300" loading="lazy"
+                        alt="webtoonx" width="200" height="150" />
+                    <div
+                        class="absolute w-full h-full bg-black/5material-symbols-light:eye-tracking0 flex items-center justify-center play-icon   transition-all duration-150 delay-100	">
+                        <Icon name="material-symbols-light:eye-tracking"
+                            class="text-white transition-all duration-300" />
                     </div>
-                </div>
-                <div class="absolute left-1 bottom-1">
-                    <div class="bg-sky-500 uppercase px-2 py-1 z-20	  font-bold text-black/80">
-                        {{ dataProduct.newEpisode }}
+                    <div class="absolute left-0 top-0" v-if="dataProduct.highlight == 1">
+                        <div class="bg-red-600 uppercase px-2 py-1 z-20	  font-bold text-white">
+                            Nổi bật
+                        </div>
                     </div>
-                </div>
+                </NuxtLink>
             </div>
-            <div class="text-white text-sm mt-3 mb-1 capitalize hover:text-sky-500">
-                <h3>
+            <div class="text-white text-sm mt-3 mb-1 capitalize ">
+                <h3 class="font-bold line-clamp-2 hover:text-sky-500">
                     {{ dataProduct.name }}
                 </h3>
+                <div class="text-center mt-3">
+                    <ul>
+                        <li class="mb-3 hover:text-sky-500" v-for="(item, index) in dataProduct.newEpisode">
+                            <NuxtLink :to="'/truyen/' + dataProduct.slug + '/' + item.slug">
+                                {{ item.name }}
+                            </NuxtLink>
 
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="text-white/50 text-xs capitalize">
-                {{ dataProduct.yearName }}
 
-
-            </div>
 
 
         </div>
@@ -55,14 +57,7 @@ export default {
     color: skyblue;
 }
 
-.product-item h3 {
-    max-height: 37px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-}
+
 
 @media only screen and (min-width: 960px) {
 

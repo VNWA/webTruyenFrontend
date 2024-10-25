@@ -187,16 +187,22 @@
                         <div class="max-h-[500px] overflow-y-scroll w-full">
                           <ul>
                             <li v-for="story in sortedHistory" :key="story.id" class="mb-5">
-                              <div class="flex items-start justify-start gap-4">
-                                <div>
-                                  <NuxtImg :src="story.image" width="80" class="max-w-[80px] h-auto" />
+                              <div class="grid grid-cols-12 gap-4">
+                                <div class="col-span-4">
+                                  <NuxtLink :to="'/truyen/' + story.slug" class="hover:text-cyan-500">
+                                    <div>
+                                      <NuxtImg :src="story.image" width="80" class="max-w-[80px] h-auto" />
+                                    </div>
+                                  </NuxtLink>
                                 </div>
-                                <div class="py-1">
-                                  <h4 class="text-white/80 font-bold">{{ story.title }}</h4>
+                                <div class="col-span-8">
+                                  <div class="py-1">
+                                    <h4 class="text-white/80 font-bold">{{ story.title }}</h4>
+                                  </div>
                                 </div>
                               </div>
                             </li>
-                         
+
                           </ul>
                         </div>
                       </div>

@@ -17,21 +17,26 @@
 
             <NuxtLink :to="'/truyen/' + item.slug">
 
-               <div class=" w-full slide-item flex items-end relative md:bg-black/30 bg-black/10  text-white transition ease-in-out delay-150 md:hover:-translate-y-1 md:hover:scale-110 hover:bg-indigo-500 duration-300">
+               <div
+                  class=" w-full slide-item flex items-end relative md:bg-black/30 bg-black/10  text-white transition ease-in-out delay-150 md:hover:-translate-y-1 md:hover:scale-110 hover:bg-indigo-500 duration-300">
 
                   <div class="w-full h-full absolute top-0 left-0 -z-50">
 
-                     <NuxtImg v-if="item.url_bg" quality="100" format="webp" :src=" item.url_bg" size="sm:50vw md:150vw lg:400vw" alt="webtoonx" loading="lazy" width="400" height="200" class="w-full h-full " />
-                     <NuxtImg v-else quality="80" format="webp" src="meta_image.png" alt="webtoonx" size="sm:50vw md:150vw lg:400vw" loading="lazy" width="400" height="200" class="w-full h-full " />
+                     <NuxtImg v-if="item.url_bg" quality="100" format="webp" :src="item.url_bg"
+                        size="sm:50vw md:150vw lg:400vw" alt="webtoonx" loading="lazy" width="400" height="200"
+                        class="w-full h-full " />
+                     <NuxtImg v-else quality="80" format="webp" src="meta_image.png" alt="webtoonx"
+                        size="sm:50vw md:150vw lg:400vw" loading="lazy" width="400" height="200"
+                        class="w-full h-full " />
                   </div>
 
                   <div class="w-full p-3 text-white ">
                      <p class="text-base font-bold">{{ item.name }}</p>
                      <p class="text-sm">{{ item.yearName }}</p>
                   </div>
-                  <div class="min-w-28 text-center">
+                  <div class="min-w-28 text-center" v-if="item.newEpisode.length > 0">
                      <div class="bg-sky-600 text-black uppercase md:px-3 px-1 md:py-2 py-1 text-xs font-bold">
-                        {{ item.newEpisode }}
+                        {{ item.newEpisode[0].name }}
                      </div>
                   </div>
                </div>
@@ -51,7 +56,7 @@ export default {
    props: {
       data: Object
    },
-  
+
 }
 </script>
 <style scoped>

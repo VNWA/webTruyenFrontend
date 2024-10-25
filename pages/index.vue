@@ -21,9 +21,7 @@
             </div>
             <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
               <div class="col-span-1" v-for="item in newProducts">
-                <NuxtLink :to="'/truyen/' + item.slug">
                   <ItemProductNormal :dataProduct="item" />
-                </NuxtLink>
               </div>
             </div>
           </div>

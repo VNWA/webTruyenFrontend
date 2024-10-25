@@ -35,12 +35,12 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: 'https://main.d3iqgblvocdgo2.amplifyapp.com',
+    url: 'http://localhost:3000',
   },
 
   runtimeConfig: {
     public: {
-      apiBase: 'https://demo1.vinawebapp.com/api/v1',
+      apiBase: 'http://127.0.0.1:8000/api/v1',
     },
   },
 

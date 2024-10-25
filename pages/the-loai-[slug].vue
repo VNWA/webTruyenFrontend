@@ -16,9 +16,7 @@
         <div class="mt-5 mb-14">
           <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
             <div class="col-span-1" v-for="item in products.data" :key="item.id">
-              <NuxtLink :to="'/truyen/' + item.slug">
                 <ItemProductNormal :dataProduct="item" />
-              </NuxtLink>
             </div>
           </div>
           <div class="flex items-center justify-center mt-10 mb-3" v-if="products.last_page > 1">
