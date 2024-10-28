@@ -43,16 +43,16 @@
             <div class="flex items-center justify-between gap-4">
               <div>
                 <NuxtLink v-if="prev_episode" :to="'/truyen/' + route.params.slug + '/' + prev_episode.slug">
-                  <button class="hover:bg-cyan-600/80 bg-teal-500 text-white bold px-10 py-2  rounded-md">
-                    <icon name="material-symbols-light:arrow-left-alt" class="text-3xl font-bold" />
+                  <button class="hover:bg-cyan-600/80 bg-teal-500 text-white bold lg:px-10 px-2 py-2  rounded-md">
+                    <icon name="material-symbols-light:arrow-left-alt" class="lg:text-3xl text-2xl font-bold" />
                   </button>
                 </NuxtLink>
-                <button v-else class=" bg-gray-500/80 text-white/80 bold px-10  round py-2ed-md">
-                  <icon name="material-symbols-light:arrow-left-alt" class="text-3xl font-bold" />
+                <button v-else class=" bg-gray-500/80 text-white/80 bold  lg:px-10 px-2    py-2 rounded-md">
+                  <icon name="material-symbols-light:arrow-left-alt" class="lg:text-3xl text-2xl font-bold" />
                 </button>
               </div>
               <div>
-                <div class="w-[200px]">
+                <div class="lg:w-[200px] w-[150px]">
                   <select v-model="selected" @change="changeEpisode"
                     class="w-full  text-black/80 font-bold bg-white border-2 border-solid border-black/70 px-3 py-2">
                     <option v-for="(item, index) in episodes" :key="index" :value="item.slug">{{ item.name }}
@@ -63,12 +63,12 @@
               </div>
               <div>
                 <NuxtLink v-if="next_episode" :to="'/truyen/' + route.params.slug + '/' + next_episode.slug">
-                  <button class="hover:bg-cyan-600/80 bg-teal-500 text-white bold px-10  py-2 rounded-md">
-                    <icon name="material-symbols-light:arrow-right-alt" class="text-3xl font-bold" />
+                  <button class="hover:bg-cyan-600/80 bg-teal-500 text-white bold  lg:px-10 px-2  py-2 rounded-md">
+                    <icon name="material-symbols-light:arrow-right-alt" class="lg:text-3xl text-2xl font-bold" />
                   </button>
                 </NuxtLink>
-                <button v-else class=" bg-gray-500/80 text-white/80 bold px-10  py-2 rounded-md">
-                  <icon name="material-symbols-light:arrow-right-alt" class="text-3xl font-bold" />
+                <button v-else class=" bg-gray-500/80 text-white/80 bold  lg:px-10 px-2  py-2 rounded-md ">
+                  <icon name="material-symbols-light:arrow-right-alt" class="lg:text-3xl text-2xl font-bold" />
                 </button>
 
 
