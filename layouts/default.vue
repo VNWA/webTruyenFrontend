@@ -195,7 +195,7 @@
 
 
     <button @click="scrollToTop" v-if="showScrollButton"
-      class="fixed z-20 lg:bottom-14 lg:left-14 bottom-10 left-2 w-14 h-14  border border-black bg-white text-black  border-solid rounded-full flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+      class="fixed z-20 lg:bottom-14 lg:right-14 bottom-10 right-2 w-14 h-14  border border-black bg-white text-black  border-solid rounded-full flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
       :class="{
         'animate-slide-up': showScrollButton,
         'animate-slide-down': !showScrollButton

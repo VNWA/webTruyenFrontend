@@ -4,20 +4,20 @@
 
       <div class="page-content bg-slate-900	p-5 rounded-md w-full h-full  max-h-full overflow-y-scroll">
         <div class="flex items-center justify-between mb-5  font-bold">
-          <h3 class="text-xl text-white/80">Tìm Kiếm Manga</h3>
+          <h3 class="text-xl text-white/80">Search</h3>
           <button class="text-white active:bg-sky-500" @click="closeSearchModal">
             <icon name="ic:outline-close" class="text-4xl text-red-500" />
           </button>
         </div>
         <div class="flex w-full h-12 bg-white text-black/80 relative">
-          <input type="text" class="w-full h-full ps-12 pe-5" @input="search" placeholder="Nhập từ khóa tìm kiếm">
+          <input type="text" class="w-full h-full ps-12 pe-5" @input="search" placeholder="Input search keyword ....">
           <div class="  w-12 h-12 flex items-center justify-center absolute top-0 left-0">
             <icon name="fa6-solid:magnifying-glass" class="lg:text-xl text-base text-yellow-500 font-bold" />
           </div>
         </div>
         <div class=" ">
           <div class="flex items-center justify-center mt-5 h-32 " v-if="dataSearch.length <= 0">
-            <span class="text-white/60">Không có kết quả </span>
+            <span class="text-white/60">Not Found </span>
           </div>
           <ul v-else class="">
             <li class="relative mb-3 block" v-for="(item, index) in dataSearch">
@@ -32,8 +32,6 @@
                       <h5 class="text-xs  text-white/50 ms-2"> {{ item.full_name }}</h5>
                     </div>
                   </div>
-
-
                 </div>
               </NuxtLink>
             </li>
