@@ -227,7 +227,7 @@ const showScrollButton = ref(false)
 
 const handleScroll = () => {
   const scrollPosition = window.scrollY
-  const scrollThreshold = (document.documentElement.scrollHeight - window.innerHeight) * (1 / 5)
+  const scrollThreshold = 200
   showScrollButton.value = scrollPosition > scrollThreshold
 }
 
