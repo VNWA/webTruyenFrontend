@@ -36,7 +36,7 @@
 
                      <NuxtImg v-if="item.url_avatar" quality="100" format="webp" :src="item.url_avatar"
                         size="sm:50vw md:150vw lg:400vw" alt="webtoonx" loading="lazy" width="200" height="400"
-                        class="w-full h-full " />
+                        class="w-full lg:h-full h-auto " />
                      <NuxtImg v-else quality="80" format="webp" src="meta_image.png" alt="webtoonx"
                         size="sm:50vw md:150vw lg:400vw" loading="lazy" width="200" height="400"
                         class="w-full h-full " />
