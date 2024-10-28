@@ -4,7 +4,7 @@
 
       <div class="page-content bg-slate-900	p-5 rounded-md w-full h-full  max-h-full overflow-y-scroll">
         <div class="flex items-center justify-between mb-5  font-bold">
-          <h3 class="text-xl text-white/80">Tìm Kiếm Truyện</h3>
+          <h3 class="text-xl text-white/80">Tìm Kiếm Manga</h3>
           <button class="text-white active:bg-sky-500" @click="closeSearchModal">
             <icon name="ic:outline-close" class="text-4xl text-red-500" />
           </button>
@@ -21,7 +21,7 @@
           </div>
           <ul v-else class="">
             <li class="relative mb-3 block" v-for="(item, index) in dataSearch">
-              <NuxtLink :to="'/truyen/' + item.slug">
+              <NuxtLink :to="'/manga/' + item.slug">
                 <div class="grid grid-cols-12  w-full  bg-black/50 hover:bg-black  relative text-white/80 hover:text-sky-500">
                   <div class="col-span-3  flex items-start justify-center p-1">
                     <NuxtImg :src=" item.url_avatar" class="w-auto  h-24" loading="lazy" alt="webtoonx" width="70" height="140" />

@@ -25,15 +25,11 @@
             <div class="h-full lg:block hidden">
               <ul class="header-menu">
 
-                <li>
-                  <NuxtLink to="/truyen">
-                    Truyện Mới
-                  </NuxtLink>
-                </li>
+             
 
                 <li>
                   <span>
-                    Thể loại
+                    Type
                     <span style="margin-top: -10px;">
                       <icon name="fa6-solid:sort-down" />
                     </span>
@@ -41,7 +37,7 @@
                   <div class=" sub-menu z-10  absolute top-full left-0 bg-black/90">
                     <ul class="grid grid-cols-12 gap-4 w-full p-5 " v-if="vnwa && vnwa.dataType.length > 0">
                       <li class="col-span-4" v-for="item in vnwa.dataType">
-                        <NuxtLink :to="'/the-loai-' + item.slug"
+                        <NuxtLink :to="'/type-' + item.slug"
                           class="text-base w-full text-white/80 flex items-center justif-start">
                           <icon name="fa6-solid:caret-right" class="text-xl me-2" /> {{ item.name }}
                         </NuxtLink>
@@ -50,25 +46,15 @@
 
                   </div>
                 </li>
-
                 <li>
-                  <span>
-                    Quốc gia
-                    <span style="margin-top: -10px;">
-                      <icon name="fa6-solid:sort-down" />
-                    </span>
-                  </span>
-                  <div class=" sub-menu z-10  absolute top-full left-0 bg-black/90">
-                    <ul class="grid grid-cols-12 gap-4 w-full p-5 " v-if="vnwa && vnwa.dataNation.length > 0">
-                      <li class="col-span-4" v-for="item in vnwa.dataNation">
-                        <NuxtLink :to="'/quoc-gia-' + item.slug"
-                          class="text-base w-full text-white/80 flex items-center justif-start">
-                          <icon name="fa6-solid:caret-right" class="text-xl me-2" /> {{ item.name }}
-                        </NuxtLink>
-                      </li>
-                    </ul>
-
-                  </div>
+                  <NuxtLink to="/history">
+                  History
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink to="/trending">
+                    Trending
+                  </NuxtLink>
                 </li>
               </ul>
 
@@ -78,13 +64,9 @@
 
 
           <button aria-label="Show Modal Search"
-            class="flex relative h-12 min-w-12 w-auto md:px-1 items-center md:justify-between justify-center md:bg-sky-500/90 text-black rounded  active:bg-sky-500">
-            <div class="absolute z-10 top-0 left-0 w-full h-full " @click="isSearchModal = true"></div>
-            <span class="text-white me-3 md:block hidden">
-              <input type="text" disabled placeholder="Tìm kiếm"
-                class="text-black bg-black/80 h-10 px-3 cursor-pointer rounded">
-            </span>
-            <icon name="fa6-solid:magnifying-glass" class="md:text-xl text-lg -z-1 me-1 md:text-black text-white" />
+            class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center" @click="isSearchModal = true">
+          
+            <icon name="fa6-solid:magnifying-glass" class="md:text-xl text-lg -z-1 me-1 text-black" />
           </button>
 
 
@@ -100,31 +82,24 @@
           <li class="  font-bold    border-b border-gray-100/20">
             <NuxtLink to="/">
               <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
-                Trang chủ
+                Home
               </h3>
             </NuxtLink>
 
           </li>
-          <li class="  font-bold    border-b border-gray-100/20">
-            <NuxtLink to="/truyen">
-              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
-                Truyện Mới
-              </h3>
-            </NuxtLink>
-
-          </li>
+         
 
 
           <li class="font-bold   border-b border-gray-100/20">
             <span>
               <h3 class=" py-3 px-3  font-bold active:bg-sky-500">
-                Thể loại
+                Type
               </h3>
             </span>
             <div class="w-full ">
               <div class="grid grid-cols-2">
                 <div class="col-span-1 " v-for="item in vnwa.dataType">
-                  <NuxtLink :to="'/the-loai-' + item.slug">
+                  <NuxtLink :to="'/type-' + item.slug">
                     <h5 class="px-3 py-2 font-medium text-base  active:text-sky-600">
                       - {{ item.name }}
                     </h5>
@@ -133,23 +108,21 @@
               </div>
             </div>
           </li>
-          <li class="font-bold   border-b border-gray-100/20">
-            <span>
-              <h3 class=" py-3 px-3  font-bold active:bg-sky-500">
-                Quốc gia
+          <li class="  font-bold    border-b border-gray-100/20">
+            <NuxtLink to="/history">
+              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
+                History
               </h3>
-            </span>
-            <div class="w-full ">
-              <div class="grid grid-cols-2">
-                <div class="col-span-1 " v-for="item in vnwa.dataNation">
-                  <NuxtLink :to="'/quoc-gia-' + item.slug" class="text-white/60">
-                    <h5 class="px-3 py-2 font-medium text-base  active:text-sky-600">
-                      - {{ item.name }}
-                    </h5>
-                  </NuxtLink>
-                </div>
-              </div>
-            </div>
+            </NuxtLink>
+
+          </li>
+          <li class="  font-bold    border-b border-gray-100/20">
+            <NuxtLink to="/trending">
+              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
+                Trending
+              </h3>
+            </NuxtLink>
+
           </li>
         </ul>
       </div>
@@ -162,7 +135,7 @@
         <div class="min-h-screen w-full bg-black/70 shadow-lg shadow-yellow-500/20">
           <div class="lg:border border-b border-l border-solid border-yellow-500 p-2 text-sm text-white/80 text-center">
             <strong> Hoang Sa</strong> and <strong>Truong Sa</strong> archipelagos belong to Vietnam
-            <GetIpComponent />
+            <!-- <GetIpComponent /> -->
           </div>
 
           <div class="w-full mt-3">
@@ -181,23 +154,23 @@
                       <div class="w-full">
                         <div class="mb-3">
                           <h3 class="border-l-4 border-sky-500 border-solid text-xl pl-3 text-white/80 font-bold">
-                            Lịch sử
+                            Top Views
                           </h3>
                         </div>
-                        <div class="max-h-[500px] overflow-y-scroll w-full">
+                        <div class=" w-full">
                           <ul>
-                            <li v-for="story in sortedHistory" :key="story.id" class="mb-5">
+                            <li v-for="(item,index) in vnwa.topViewProducts" :key="index" class="mb-5">
                               <div class="grid grid-cols-12 gap-4">
                                 <div class="col-span-4">
-                                  <NuxtLink :to="'/truyen/' + story.slug" class="hover:text-cyan-500">
+                                  <NuxtLink :to="'/manga/' + item.slug" class="hover:text-cyan-500">
                                     <div>
-                                      <NuxtImg :src="story.image" width="80" class="max-w-[80px] h-auto" />
+                                      <NuxtImg :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
                                     </div>
                                   </NuxtLink>
                                 </div>
                                 <div class="col-span-8">
                                   <div class="py-1">
-                                    <h4 class="text-white/80 font-bold">{{ story.title }}</h4>
+                                    <h4 class="text-white/80 font-bold">{{ item.name }}</h4>
                                   </div>
                                 </div>
                               </div>
@@ -228,16 +201,9 @@ const vnwaStore = useMyVnwaStore()
 const vnwa = ref([]);
 await vnwaStore.fetchVnwaData()
 vnwa.value = vnwaStore.vnwa
-const myHistoryStore = useMyHistoryStore()
 
-onMounted(() => {
-  myHistoryStore.loadHistory() // Tải lịch sử từ Local Storage
-})
 
-// Sắp xếp lịch sử theo thứ tự mới nhất trước
-const sortedHistory = computed(() => {
-  return myHistoryStore.history.slice().reverse() // Đảo ngược mảng để hiển thị mới nhất trước
-})
+
 const isMobileMenu = ref(false);
 const isSearchModal = ref(false);
 const handleSearchModalClose = (newValue) => {

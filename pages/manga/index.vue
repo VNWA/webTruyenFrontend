@@ -1,14 +1,14 @@
 <template>
   <div>
-    <Title>Truyện tranh mới nhất</Title>
-    <Meta name="title" content="Truyện tranh mới nhất" />
-    <Meta name="og:title" content="Truyện tranh mới nhất" />
+    <Title>Manga tranh mới nhất</Title>
+    <Meta name="title" content="Manga tranh mới nhất" />
+    <Meta name="og:title" content="Manga tranh mới nhất" />
 
     <NuxtLayout>
       <div v-if="loading">Loading...</div>
       <div v-else>
         <div>
-          <PageTitle>Truyện mới nhất</PageTitle>
+          <PageTitle>Manga mới nhất</PageTitle>
         </div>
         <div class="mt-5 mb-14">
           <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
@@ -18,7 +18,7 @@
           </div>
           <div class="flex items-center justify-center mt-10 mb-3" v-if="products.last_page > 1">
 
-            <Pagination :urlPage="'/truyen'" :totalPage="products.last_page" :current_page="products.current_page"
+            <Pagination :urlPage="'/manga'" :totalPage="products.last_page" :current_page="products.current_page"
               @change-page="handleChangePage" />
           </div>
         </div>
@@ -49,6 +49,7 @@ const fetchProducts = async (page = 1) => {
 
 // Gọi API lần đầu
 await fetchProducts();
+
 
 // Hàm xử lý khi trang thay đổi
 const handleChangePage = async (page) => {

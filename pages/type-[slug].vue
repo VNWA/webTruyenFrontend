@@ -11,7 +11,7 @@
       <div v-if="isLoading">Loading...</div>
       <div v-else>
         <div>
-          <PageTitle>Truyện {{ title }}</PageTitle>
+          <PageTitle>Manga {{ title }}</PageTitle>
         </div>
         <div class="mt-5 mb-14">
           <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
@@ -21,7 +21,7 @@
           </div>
           <div class="flex items-center justify-center mt-10 mb-3" v-if="products.last_page > 1">
 
-            <Pagination :urlPage="'/quoc-gia-' + route.params.slug" :totalPage="products.last_page"
+            <Pagination :urlPage="'/nation-' + route.params.slug" :totalPage="products.last_page"
               :current_page="products.current_page" @change-page="handleChangePage" />
           </div>
         </div>
@@ -43,7 +43,7 @@ const meta_image = ref('')
 const isLoading = ref(false);
 const fetchProducts = async (page = 1) => {
   isLoading.value = true;
-  const response = await fetch(`${config.public.apiBase}/get-data-products-by-nation/${route.params.slug}?page=${page}`);
+  const response = await fetch(`${config.public.apiBase}/get-data-products-by-type/${route.params.slug}?page=${page}`);
   const data = await response.json();
   if (response.ok) {
     title.value = data.title

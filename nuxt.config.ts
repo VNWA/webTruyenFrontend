@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     'nuxt-schema-org',
     '@nuxt/image',
     '@pinia/nuxt',
+    'nuxt-disqus',
   ],
 
   sitemap: {
@@ -42,6 +43,9 @@ export default defineNuxtConfig({
     public: {
       apiBase: 'https://demo1.vinawebapp.com/api/v1',
     },
+  },
+  disqus: {
+    shortname: "Manga18FX",
   },
 
   css: [

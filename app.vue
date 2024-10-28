@@ -14,8 +14,8 @@ useHead({
   },
   meta: [
     { name: 'monetag', content: 'cac41a73e707d7bf37f01f545e2542ce' },
-    { name: 'og:description', content: 'Truyện Mới chất lượng cao miễn phí. Xem phim hd VietSub. Truyện thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
-    { name: 'description', content: 'Truyện Mới chất lượng cao miễn phí. Xem phim hd VietSub. Truyện thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
+    { name: 'og:description', content: 'Manga Mới chất lượng cao miễn phí. Xem phim hd VietSub. Manga thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
+    { name: 'description', content: 'Manga Mới chất lượng cao miễn phí. Xem phim hd VietSub. Manga thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
     { name: 'image', content: 'https://www.webtoonx/meta_image.png' },
     { name: 'og:image', content: 'https://www.webtoonx/meta_image.png' },
   ],

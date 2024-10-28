@@ -6,7 +6,7 @@
                     <template v-for="(item, index) in data">
                          <template v-if="index == 0">
                               <li class="relative mb-3 ">
-                                   <NuxtLink :to="'/truyen/' + item.slug" class="">
+                                   <NuxtLink :to="'/manga/' + item.slug" class="">
 
                                         <NuxtImg v-if="item.url_bg" quality="80" format="webp" :src="item.url_bg"
                                              class=" hover:brightness-50 w-full  h-auto" loading="lazy" alt="webtoonx"
@@ -24,7 +24,7 @@
                          </template>
                          <template v-else>
                               <li class="relative mb-3">
-                                   <NuxtLink :to="'/truyen/' + item.slug">
+                                   <NuxtLink :to="'/manga/' + item.slug">
                                         <div
                                              class="grid grid-cols-12  w-full h-24 bg-black/50 hover:bg-black overflow-hidden text-white/80 hover:text-sky-500 ">
                                              <div class="col-span-3 h-full flex items-start justify-center p-1">
