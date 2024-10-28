@@ -108,7 +108,7 @@
 
         <div class="overflow-y-scroll lg:max-h-[400px] max-h-[300px]">
           <ul class="lg:px-10 px-2 dri">
-            <li v-for="item in product.episodes">
+            <li v-for="item in product.episodes" class="mb-3">
               <NuxtLink :to="'/manga/' + product.slug + '/' + item.slug"
                 class=" text-white hover:text-sky-600 lg:px-3 px-1 h-12 block py-1">
                 <div class="flex items-center justify-between gap-4 border-b border-solid boder-gray-800  py-1">
