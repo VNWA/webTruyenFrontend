@@ -40,7 +40,7 @@
         <div class="lg:col-span-10 col-span-12 sm:py-2  pl-5">
           <h1 class="sm:text-3xl  font-bold text-2xl  text-white mb-5">{{ product.name }}</h1>
           <h3 class="sm:text-base font-bold  text-xs text-white/50 mb-5">{{ product.full_name }}</h3>
-          
+
           <div class="flex items-center justify-start gap-4 text-white font-bold mb-3">
             <div>Nation: </div>
             <div>
@@ -67,7 +67,7 @@
                 <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[0].slug">
                   <button
                     class="text-white  rounded-lg  bg-gray-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-cyan-500/50">
-                   Read First
+                    Read First
                   </button>
                 </NuxtLink>
 
@@ -76,7 +76,7 @@
                 <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[product.episodes.length - 1].slug">
                   <button
                     class="text-white   rounded-lg bg-blue-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-blue-500/50">
-                   Read Last
+                    Read Last
                   </button>
                 </NuxtLink>
               </div>
@@ -85,12 +85,12 @@
           </div>
           <div class="w-full py-3">
             <h3 class=" text-xl mb-3 text-white/80 font-bold">
-              Summary            </h3>
+              Summary </h3>
             <div class="ps-3">
               <div v-if="product.desc" v-html="product.desc" class="text-white/60 text-base"></div>
               <div v-else>
                 <h5 class="text-white/80">
-Updating </h5>
+                  Updating </h5>
               </div>
             </div>
           </div>
@@ -100,22 +100,23 @@ Updating </h5>
 
       <div class="w-full border-y-4 border-solid border-white/20 py-3 mb-4">
         <div class=" flex items-center justify-start gap-6 mb-5">
-            <Icon name="fxemoji:markschaptersymbol" class="text-4xl" />
+          <Icon name="fxemoji:markschaptersymbol" class="text-4xl" />
           <h3 class=" text-xl  text-white/80 font-bold">
-             {{product.name}} Chappters
-        </h3>
+            {{ product.name }} Chappters
+          </h3>
         </div>
-      
-        <div class="overflow-y-scroll lg:max-h-[400px] max-h-[200px]">
-          <ul  class="px-10 dri">
-            <li v-for="item in product.episodes" >
-              <NuxtLink :to="'/manga/' + product.slug + '/' + item.slug" class=" text-white hover:text-sky-600 px-3 h-12 block py-1">
+
+        <div class="overflow-y-scroll lg:max-h-[400px] max-h-[300px]">
+          <ul class="lg:px-10 px-2 dri">
+            <li v-for="item in product.episodes">
+              <NuxtLink :to="'/manga/' + product.slug + '/' + item.slug"
+                class=" text-white hover:text-sky-600 lg:px-3 px-1 h-12 block py-1">
                 <div class="flex items-center justify-between gap-4 border-b border-solid boder-gray-800  py-1">
-                <h4 > {{ item.name }}</h4>
-                <h5 class="text-gray-500 text-base uppercase">{{item.update_time}}</h5>
-              </div>
-            </NuxtLink>
-             
+                  <h4> {{ item.name }}</h4>
+                  <h5 class="text-gray-500 lg:text-sm text-xs  uppercase">{{ item.update_time }}</h5>
+                </div>
+              </NuxtLink>
+
             </li>
           </ul>
 
@@ -127,7 +128,7 @@ Updating </h5>
 
         </h3>
         <div class="">
-          
+
           <DisqusComments :identifier="route.fullPath" />
 
         </div>
@@ -162,7 +163,7 @@ if (response.ok) {
   meta_desc.value = data.meta_desc
   product.value = data.product
 
-    await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
+  await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
   const storyData = {
     id: product.value.id,
     name: product.value.name,
