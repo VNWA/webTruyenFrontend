@@ -193,6 +193,16 @@
       </div>
     </div>
 
+
+    <button @click="scrollToTop" v-if="showScrollButton"
+      class="fixed z-20 lg:bottom-14 lg:left-14 bottom-20 left-5 w-14 h-14  border border-black bg-white text-black  border-solid rounded-full flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+      :class="{
+        'animate-slide-up': showScrollButton,
+        'animate-slide-down': !showScrollButton
+      }">
+      <Icon name="lets-icons:arrow-alt-ltop" class="text-5xl" />
+    </button>
+
   </div>
 </template>
 
@@ -210,6 +220,36 @@ const handleSearchModalClose = (newValue) => {
   console.log(newValue);
   isSearchModal.value = newValue;
 };
+
+
+
+const showScrollButton = ref(false)
+
+const handleScroll = () => {
+  const scrollPosition = window.scrollY
+  const scrollThreshold = (document.documentElement.scrollHeight - window.innerHeight) * (1 / 5)
+  showScrollButton.value = scrollPosition > scrollThreshold
+}
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+const nuxtApp = useNuxtApp()
+
+nuxtApp.hook("page:finish", () => {
+  window.scrollTo(0, 0)
+  isMenuOpen.value = false
+  isSearchOpen.value = false
+  isCartOpen.value = false
+})
 </script>
 
 <style scoped>
