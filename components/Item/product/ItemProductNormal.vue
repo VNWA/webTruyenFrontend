@@ -2,11 +2,11 @@
     <div>
         <div class="relative product-item" v-if="dataProduct">
             <div class="logo transition-all duration-300 rounded-lg overflow-hidden">
-                <NuxtLink :to="'/manga/' + dataProduct.slug">
-                    <div class="flex items-center justify-center  ">
+                <NuxtLink :to="'/manga/' + dataProduct.slug" class="w-full">
+                    <div class="flex items-center justify-center  w-full h-full ">
                         <NuxtImg quality="80" format="webp" :src="dataProduct.url_avatar"
-                            class="transition ease-in-out delay-150 bg-blue-500 	 w-100 duration-300" loading="lazy"
-                            alt="webtoonx" width="200" height="150" />
+                            class="transition ease-in-out delay-150 bg-blue-500 	 w-full h-auto  duration-300"
+                            loading="lazy" alt="webtoonx" width="150" height="250" />
                         <div
                             class="absolute w-full h-full bg-black/5material-symbols-light:eye-tracking0 flex items-center justify-center play-icon   transition-all duration-150 delay-100	">
                             <Icon name="material-symbols-light:eye-tracking"
@@ -29,16 +29,25 @@
                     </h3>
                 </NuxtLink>
 
-                <div class="flex items-center justify-between gap-4 mt-3">
-                    <div >
+                <div class="flex items-start justify-between gap-4 mt-3">
+                    <div>
+                        <div v-if="reversedChapters.length > 0">
+                            <div v-for="(item, index) in reversedChapters" :key="index" class="mb-3">
+                                <Nuxtlink :to="'/manga/' + dataProduct.slug + '/' + item.slug">
+                                    <span class="px-1 line-clamp-1 rounded block bg-sky-500/50 hover:bg-sky-500/70">
+                                        {{ item.name }}
+                                    </span>
 
-                    <span v-if="reversedChapters.length >0" class="px-1 line-clamp-1 rounded block bg-sky-500/50">
-                        {{ reversedChapters[0].name }}
-                    </span>
-                    <span v-else class="px-1 rounded block bg-sky-500/50">
-                        Updating ..
-                                        </span>
-                </div>
+                                </NuxtLink>
+                            </div>
+
+                        </div>
+                        <div v-else>
+                            <span class="px-1 rounded block bg-sky-500/50">
+                                Updating ..
+                            </span>
+                        </div>
+                    </div>
                     <span class="text-white/80 ">
                         <Icon name="fa6-regular:eye" class="text-xl" /> {{ formatViews(view) }}
                     </span>
@@ -62,11 +71,11 @@ if (props.dataProduct.views <= 100) {
     view.value = props.dataProduct.views
 }
 const formatViews = (views) => {
-  if (views >= 1000) {
-    // Lấy số nguyên và hai chữ số thập phân
-    return (views / 1000).toFixed(0) + 'k'; // Chỉ giữ số nguyên
-  }
-  return views; // Trả về số nguyên nếu dưới 1000
+    if (views >= 1000) {
+        // Lấy số nguyên và hai chữ số thập phân
+        return (views / 1000).toFixed(0) + 'k'; // Chỉ giữ số nguyên
+    }
+    return views; // Trả về số nguyên nếu dưới 1000
 };
 const reversedChapters = computed(() => {
     return [...props.dataProduct.newEpisode].reverse(); // Đảo ngược mảng chapters
@@ -90,7 +99,7 @@ const reversedChapters = computed(() => {
         width: 100%;
         height: 200px;
         display: flex;
-        align-items: top;
+        align-items: start;
         justify-content: center;
         position: relative;
         overflow: hidden;

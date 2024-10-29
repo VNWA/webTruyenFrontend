@@ -61,24 +61,36 @@
           <!-- <span class="bg-sky-500 px-3 py-1 uppercase text-white font-bold sm:text-base text-xs ">
                 
             </span> -->
-          <div class="mt-5" v-if="product.episodes.length > 0">
-            <div class="flex items-center justify-start gap-6">
-              <div>
-                <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[0].slug">
-                  <button
-                    class="text-white  rounded-lg  bg-gray-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-cyan-500/50">
-                    Read First
-                  </button>
-                </NuxtLink>
-
-              </div>
+          <div class="mt-5" >
+            <div v-if="product.episodes.length > 2" class="flex items-center justify-start gap-6">
+            
               <div v-if="product.episodes.length > 1">
                 <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[product.episodes.length - 1].slug">
                   <button
                     class="text-white   rounded-lg bg-blue-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-blue-500/50">
+                    Read  First
+                  </button>
+                </NuxtLink>
+              </div>
+              <div>
+                <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[0].slug">
+                  <button
+                    class="text-white  rounded-lg  bg-gray-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-cyan-500/50">
                     Read Last
                   </button>
                 </NuxtLink>
+
+              </div>
+            </div>
+            <div v-else class="flex items-center justify-start gap-6">
+              <div>
+              
+                  <button
+                    class="text-white  rounded-lg  bg-gray-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-cyan-500/50">
+                    Updating....
+                  </button>
+         
+
               </div>
             </div>
 
