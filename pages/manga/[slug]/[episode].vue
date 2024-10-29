@@ -90,9 +90,11 @@
             </li>
            </ul>
           </div>
+          <div class="flex items-center justify-center my-3">
+            <ShareButtons />
+          </div>
           <div v-if="isComment" class="w-full border-y-4 border-solid border-white/20 py-3">
         <h3 class=" text-xl mb-3 text-white/80 font-bold">
-          <DisqusCount :identifier="route.fullPath" />
 
         </h3>
         <div class="">

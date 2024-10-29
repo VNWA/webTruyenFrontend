@@ -70,6 +70,7 @@ onMounted(() => {
     router.push('/user'); // Redirect to user page
   }
 })
+const errorMessage = ref('');
 
 const form = reactive({
   username: '',
@@ -106,14 +107,20 @@ const handleRegister = async () => {
   try {
     await customerStore.register(form);
     router.push('/user');
-  } catch (error) {
-    const errorsResponse = error;
-    errors.value = Object.fromEntries(
-      Object.entries(errorsResponse.errors).map(([key, messages]) => [
-        key, messages.join(', ') // Convert array of errors to string
-      ])
-    );
-  }
+  }  catch (error) {
+  console.log('Lỗi đăng ký:', error);
+
+  // Lưu thông tin lỗi vào biến errors để hiển thị
+  errors.value = Object.fromEntries(
+    Object.entries(error.errors || {}).map(([key, messages]) => [
+      key,
+      messages.join(', '), // Chuyển mảng lỗi thành chuỗi
+    ])
+  );
+
+  // Hiển thị thông báo lỗi chung (nếu cần)
+  errorMessage.value = error.message || 'Đăng ký thất bại. Vui lòng thử lại.';
+}
 }
 </script>
 

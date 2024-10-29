@@ -3,7 +3,9 @@
     <header class="w-full  flex justify-center ">
       <div class="page-content w-full h-full lg:bg-black/70 shadow-lg shadow-cyan-500/50  bg-zinc-950">
         <div class="flex items-center justify-between w-full h-full lg:px-3 px-2 py-2">
-          <div class="lg:hidden block">
+        
+          <div class=" h-full flex items-center justify-start ">
+            <div class="lg:hidden block">
             <button aria-label="Show Menu" v-if="!isMobileMenu" @click="isMobileMenu = !isMobileMenu"
               class="h-8 w-8 bg-gray-800/50  flex items-center justify-center me-3 active:bg-sky-500">
               <Icon name="material-symbols:menu" class="text-4xl text-white" />
@@ -13,8 +15,6 @@
               <Icon name="mdi:close-outline" class="text-4xl" />
             </button>
           </div>
-          <div class=" h-full flex items-center ">
-
             <div class="lg:w-56 lg:h-full  w-auto h-8    flex items-center justify-center">
               <NuxtLink to="/" class="h-full">
                 <h3 v-if="!vnwa" class="text-white/80 font-bold text-xl">webtoonx</h3>
@@ -62,24 +62,24 @@
 
           </div>
 
-          <div class="flex items-center justify-center gap-5">
-            <NuxtLink to="/user">
+          <div class="flex items-center justify-center lg:gap-5 gap-2">
+            <NuxtLink to="/user/bookmark">
               <button aria-label="Open Bookmark"
-                class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center">
+                class="bg-white/90 text-black lg:w-10 lg:h-10 w-8 h-8 rounded-full flex items-center justify-center">
 
                 <icon name="material-symbols:bookmark-heart" class="md:text-xl text-lg -z-1  text-black" />
               </button>
             </NuxtLink>
             <NuxtLink to="/user">
               <button aria-label="Open User"
-                class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center relative">
+                class="bg-white/90 text-black lg:w-10 lg:h-10 w-8 h-8 rounded-full flex items-center justify-center relative">
 
                 <icon name="fa6-solid:user" class="md:text-xl text-lg -z-1  text-black" />
                   <div v-if="customerStore.newNotificationsCount >0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 "></div>
               </button>
             </NuxtLink>
             <button aria-label="Show Modal Search"
-              class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center"
+              class="bg-white/90 text-black lg:w-10 lg:h-10 w-8 h-8 rounded-full flex items-center justify-center"
               @click="isSearchModal = true">
               <icon name="fa6-solid:magnifying-glass" class="md:text-xl text-lg -z-1  text-black" />
             </button>
@@ -193,11 +193,12 @@ const newNotificationCount = ref(0);
 const loadingStore = useMyLoadingStore();
 const isLoading = computed(() => loadingStore.isLoading);
 onMounted( () => {
-   customerStore.loadCountNewNotifcation()
+   customerStore.loadCountNewNotification()
    newNotificationCount.value = customerStore.newNotificationsCount
 
 
 })
+
 const isMobileMenu = ref(false);
 const isSearchModal = ref(false);
 const handleSearchModalClose = (newValue) => {

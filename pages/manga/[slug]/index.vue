@@ -41,30 +41,17 @@
           <h1 class="sm:text-3xl  font-bold text-2xl  text-white mb-5">{{ product.name }}</h1>
           <h3 class="sm:text-base font-bold  text-xs text-white/50 mb-5">{{ product.full_name }}</h3>
 
-          <div class="flex items-center justify-start gap-4 text-white font-bold mb-3">
-            <div>Nation: </div>
-            <div>
-              <div v-if="product.types.length > 0" v-for="(item, index) in product.types" :key="index"
-                class="flex items-center justify-start gap-4 flex-wrap">
-                <NuxtLink :to="'/type-' + item.slug">
-                  <span class="bg-white text-black px-3 hover:bg-blue-500 hover:text-white">
-                    {{ item.name }}
-                  </span>
-                </NuxtLink>
-
+     
+          <div class="w-full py-3">
+            <h3 class=" text-xl mb-3 text-white/80 font-bold">
+              Summary </h3>
+            <div class="ps-3">
+              <div v-if="product.desc" v-html="product.desc" class="text-white/60 text-base"></div>
+              <div v-else>
+                <h5 class="text-white/80">
+                  Updating </h5>
               </div>
-              <div v-else class="text-white">Updating</div>
-
             </div>
-
-          </div>
-          <!-- <span class="bg-sky-500 px-3 py-1 uppercase text-white font-bold sm:text-base text-xs ">
-                
-            </span> -->
-          <div class="mt-5" v-if="product">
-            <button :class="{'text-cyan-500':isInWishlist}" class="text-gray-500" @click="handleToggleWishlist">
-              <Icon class="text-4xl" name="material-symbols:bookmark-add" />
-            </button>
           </div>
           <div class="mt-5">
             <div v-if="product.episodes.length > 2" class="flex items-center justify-start gap-6">
@@ -100,17 +87,19 @@
             </div>
 
           </div>
-          <div class="w-full py-3">
-            <h3 class=" text-xl mb-3 text-white/80 font-bold">
-              Summary </h3>
-            <div class="ps-3">
-              <div v-if="product.desc" v-html="product.desc" class="text-white/60 text-base"></div>
-              <div v-else>
-                <h5 class="text-white/80">
-                  Updating </h5>
-              </div>
-            </div>
+          <div class="flex flex-wrap items-center justify-start gap-6 mt-5">
+            <div class="" v-if="product">
+            <button  class="text-gray-500 bg-white" 
+              @click="handleToggleWishlist">
+              <Icon :class="{ 'text-cyan-500': isBookmark }"  class="text-4xl" name="material-symbols:bookmark-add" /> 
+            </button>
           </div>
+          <div>
+            <ShareButtons />
+
+          </div>
+          </div>
+
         </div>
       </div>
 
@@ -190,19 +179,29 @@ if (response.ok) {
 } else {
   console.error(response)
 }
-
+const isBookmark = ref(false);
 
 onMounted(() => {
   isComment.value = true;
+  if( customerStore.isAuthenticated){
 
   customerStore.fetchWishlist();
+  isBookmark.value = customerStore.isWishlist(product.value.slug)
+}
 })
-const isInWishlist = computed(() => customerStore.isWishlist(product.value.slug));
+
 
 const handleToggleWishlist = () => {
-loadingStore.start();
+  if( customerStore.isAuthenticated){
+    loadingStore.start();
+
   customerStore.toggleWishlist(product.value.slug);
-loadingStore.stop();
+  customerStore.fetchWishlist();
+  isBookmark.value = !isBookmark.value
+  loadingStore.stop();
+}else{
+  router.push('/login')
+}
 
 };
 

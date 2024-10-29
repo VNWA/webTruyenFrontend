@@ -23,7 +23,7 @@
           </div>
           <div class="flex justify-between mt-4 items-center">
             <div class="text-sm">
-              <span class="text-primary">*</span> - don't have an account yet
+              <span class="text-primary">*</span> - don't account
               <div class="my-1">
                 <NuxtLink to="/register" class="text-primary underline">Register</NuxtLink>
               </div>
