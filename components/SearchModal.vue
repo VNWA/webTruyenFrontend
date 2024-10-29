@@ -15,7 +15,7 @@
             <icon name="fa6-solid:magnifying-glass" class="lg:text-xl text-base text-yellow-500 font-bold" />
           </div>
         </div>
-        <div class=" ">
+        <div class="">
           <div class="flex items-center justify-center mt-5 h-32 " v-if="dataSearch.length <= 0">
             <span class="text-white/60">Not Found </span>
           </div>

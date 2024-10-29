@@ -25,7 +25,7 @@
             <div class="h-full lg:block hidden">
               <ul class="header-menu">
 
-             
+
 
                 <li>
                   <span>
@@ -48,7 +48,7 @@
                 </li>
                 <li>
                   <NuxtLink to="/history">
-                  History
+                    History
                   </NuxtLink>
                 </li>
                 <li>
@@ -62,12 +62,22 @@
 
           </div>
 
+        <div class="flex items-center justify-center gap-5">
+          <NuxtLink to="/user" >
+            <button aria-label="Show Modal Search"
+            class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center"
+            >
 
-          <button aria-label="Show Modal Search"
-            class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center" @click="isSearchModal = true">
-          
-            <icon name="fa6-solid:magnifying-glass" class="md:text-xl text-lg -z-1 me-1 text-black" />
+            <icon name="fa6-solid:user" class="md:text-xl text-lg -z-1  text-black" />
           </button>
+          </NuxtLink>
+          <button aria-label="Show Modal Search"
+            class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center"
+            @click="isSearchModal = true">
+
+            <icon name="fa6-solid:magnifying-glass" class="md:text-xl text-lg -z-1  text-black" />
+          </button>
+        </div>
 
 
         </div>
@@ -87,7 +97,7 @@
             </NuxtLink>
 
           </li>
-         
+
 
 
           <li class="font-bold   border-b border-gray-100/20">
@@ -145,10 +155,10 @@
                   <slot />
                 </div>
               </div>
-           
+
             </div>
           </div>
-
+      
 
         </div>
       </div>
@@ -207,9 +217,6 @@ const nuxtApp = useNuxtApp()
 
 nuxtApp.hook("page:finish", () => {
   window.scrollTo(0, 0)
-  isMenuOpen.value = false
-  isSearchOpen.value = false
-  isCartOpen.value = false
 })
 </script>
 

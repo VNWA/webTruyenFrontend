@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@pinia/nuxt',
     'nuxt-disqus',
+    'turnstile',
   ],
 
   sitemap: {
@@ -41,7 +42,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: 'https://demo1.vinawebapp.com/api/v1',
+      apiBase: 'http://127.0.0.1:8000/api/v1',
     },
   },
   disqus: {
