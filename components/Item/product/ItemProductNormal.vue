@@ -33,7 +33,7 @@
                     <div>
                         <div v-if="reversedChapters.length > 0">
                             <div v-for="(item, index) in reversedChapters" :key="index" class="mb-3">
-                                <Nuxtlink :to="'/manga/' + dataProduct.slug + '/' + item.slug">
+                                <NuxtLink :to="'/manga/' + dataProduct.slug + '/' + item.slug">
                                     <span class="px-1 line-clamp-1 rounded block bg-sky-500/50 hover:bg-sky-500/70">
                                         {{ item.name }}
                                     </span>
@@ -65,11 +65,8 @@ const props = defineProps({
 
 })
 const view = ref(0);
-if (props.dataProduct.views <= 100) {
-    view.value = 100 + Math.floor(Math.random() * 100);
-} else {
-    view.value = props.dataProduct.views
-}
+view.value = props.dataProduct.views
+
 const formatViews = (views) => {
     if (views >= 1000) {
         // Lấy số nguyên và hai chữ số thập phân
@@ -82,86 +79,5 @@ const reversedChapters = computed(() => {
 });
 </script>
 <style lang="css">
-.product-item {
-    width: 100%;
-    cursor: pointer;
-}
 
-.product-item:active {
-    color: skyblue;
-}
-
-
-
-@media only screen and (min-width: 960px) {
-
-    .product-item .logo {
-        width: 100%;
-        height: 200px;
-        display: flex;
-        align-items: start;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        font-size: 10px;
-    }
-}
-
-@media only screen and (max-width: 960px) {
-
-    .product-item .logo {
-        width: 100%;
-        height: 250px;
-        display: flex;
-        align-items: top;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        font-size: 10px;
-    }
-}
-
-@media only screen and (min-width: 501px) {
-
-
-    .product-item .logo:hover img {
-        transform: translateY(0.25rem);
-        transform: scale(1.25);
-    }
-
-    .product-item .logo .play-icon {
-        opacity: 0;
-    }
-
-    .product-item .logo:hover .play-icon {
-        opacity: 1;
-    }
-
-    .product-item .logo .play-icon svg {
-        font-size: 70px;
-
-    }
-
-    .product-item .logo:hover .play-icon svg {
-        font-size: 50px;
-
-    }
-}
-
-@media only screen and (max-width: 500px) {
-    .product-item .logo .play-icon {
-        display: none;
-    }
-
-    .product-item .logo {
-        width: 100%;
-        height: 210px;
-        display: flex;
-        align-items: top;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        font-size: 10px;
-    }
-}
 </style>

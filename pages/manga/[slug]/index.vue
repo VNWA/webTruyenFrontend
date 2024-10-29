@@ -37,7 +37,7 @@
               width="200" />
           </div>
         </div>
-        <div class="lg:col-span-10 col-span-12 sm:py-2  pl-5">
+        <div class="lg:col-span-10 col-span-12 sm:py-2  lg:pl-5">
           <h1 class="sm:text-3xl  font-bold text-2xl  text-white mb-5">{{ product.name }}</h1>
           <h3 class="sm:text-base font-bold  text-xs text-white/50 mb-5">{{ product.full_name }}</h3>
 
@@ -61,14 +61,19 @@
           <!-- <span class="bg-sky-500 px-3 py-1 uppercase text-white font-bold sm:text-base text-xs ">
                 
             </span> -->
-          <div class="mt-5" >
+          <div class="mt-5" v-if="product">
+            <button :class="{'text-cyan-500':isInWishlist}" class="text-gray-500" @click="handleToggleWishlist">
+              <Icon class="text-4xl" name="material-symbols:bookmark-add" />
+            </button>
+          </div>
+          <div class="mt-5">
             <div v-if="product.episodes.length > 2" class="flex items-center justify-start gap-6">
-            
+
               <div v-if="product.episodes.length > 1">
                 <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[product.episodes.length - 1].slug">
                   <button
                     class="text-white   rounded-lg bg-blue-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-blue-500/50">
-                    Read  First
+                    Read First
                   </button>
                 </NuxtLink>
               </div>
@@ -84,12 +89,12 @@
             </div>
             <div v-else class="flex items-center justify-start gap-6">
               <div>
-              
-                  <button
-                    class="text-white  rounded-lg  bg-gray-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-cyan-500/50">
-                    Updating....
-                  </button>
-         
+
+                <button
+                  class="text-white  rounded-lg  bg-gray-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-cyan-500/50">
+                  Updating....
+                </button>
+
 
               </div>
             </div>
@@ -160,12 +165,10 @@ const product = ref([])
 
 const config = useRuntimeConfig();
 const route = useRoute();
+const loadingStore = useMyLoadingStore()
 const myHistoryStore = useMyHistoryStore() // Khởi tạo store
 const isComment = ref(false);
-onMounted(() => {
-  isComment.value = true;
-
-})
+const customerStore = useCustomerStore();
 const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
 const data = await response.json();
 if (response.ok) {
@@ -187,6 +190,23 @@ if (response.ok) {
 } else {
   console.error(response)
 }
+
+
+onMounted(() => {
+  isComment.value = true;
+
+  customerStore.fetchWishlist();
+})
+const isInWishlist = computed(() => customerStore.isWishlist(product.value.slug));
+
+const handleToggleWishlist = () => {
+loadingStore.start();
+  customerStore.toggleWishlist(product.value.slug);
+loadingStore.stop();
+
+};
+
+
 </script>
 
 <style></style>

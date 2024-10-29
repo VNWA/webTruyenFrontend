@@ -42,7 +42,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: 'http://127.0.0.1:8000/api/v1',
+      apiBase: 'https://demo1.vinawebapp.com/api/v1',
     },
   },
   disqus: {

@@ -62,22 +62,28 @@
 
           </div>
 
-        <div class="flex items-center justify-center gap-5">
-          <NuxtLink to="/user" >
+          <div class="flex items-center justify-center gap-5">
+            <NuxtLink to="/user">
+              <button aria-label="Open Bookmark"
+                class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center">
+
+                <icon name="material-symbols:bookmark-heart" class="md:text-xl text-lg -z-1  text-black" />
+              </button>
+            </NuxtLink>
+            <NuxtLink to="/user">
+              <button aria-label="Open User"
+                class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center relative">
+
+                <icon name="fa6-solid:user" class="md:text-xl text-lg -z-1  text-black" />
+                  <div v-if="customerStore.newNotificationsCount >0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 "></div>
+              </button>
+            </NuxtLink>
             <button aria-label="Show Modal Search"
-            class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center"
-            >
-
-            <icon name="fa6-solid:user" class="md:text-xl text-lg -z-1  text-black" />
-          </button>
-          </NuxtLink>
-          <button aria-label="Show Modal Search"
-            class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center"
-            @click="isSearchModal = true">
-
-            <icon name="fa6-solid:magnifying-glass" class="md:text-xl text-lg -z-1  text-black" />
-          </button>
-        </div>
+              class="bg-white/90 text-black w-10 h-10 rounded-full flex items-center justify-center"
+              @click="isSearchModal = true">
+              <icon name="fa6-solid:magnifying-glass" class="md:text-xl text-lg -z-1  text-black" />
+            </button>
+          </div>
 
 
         </div>
@@ -158,7 +164,7 @@
 
             </div>
           </div>
-      
+
 
         </div>
       </div>
@@ -173,7 +179,7 @@
       }">
       <Icon name="lets-icons:arrow-alt-ltop" class="text-5xl" />
     </button>
-
+    <Loading v-if="isLoading" />
   </div>
 </template>
 
@@ -182,15 +188,23 @@ const vnwaStore = useMyVnwaStore()
 const vnwa = ref([]);
 await vnwaStore.fetchVnwaData()
 vnwa.value = vnwaStore.vnwa
+const customerStore = useCustomerStore();
+const newNotificationCount = ref(0);
+const loadingStore = useMyLoadingStore();
+const isLoading = computed(() => loadingStore.isLoading);
+onMounted( () => {
+   customerStore.loadCountNewNotifcation()
+   newNotificationCount.value = customerStore.newNotificationsCount
 
 
-
+})
 const isMobileMenu = ref(false);
 const isSearchModal = ref(false);
 const handleSearchModalClose = (newValue) => {
   console.log(newValue);
   isSearchModal.value = newValue;
 };
+
 
 
 
@@ -208,6 +222,9 @@ const scrollToTop = () => {
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+
+
+
 })
 
 onBeforeUnmount(() => {
