@@ -34,7 +34,7 @@
                         <div v-if="reversedChapters.length > 0">
                             <div v-for="(item, index) in reversedChapters" :key="index" class="mb-3">
                                 <NuxtLink :to="'/manga/' + dataProduct.slug + '/' + item.slug">
-                                    <span class="px-1 line-clamp-1 rounded  bg-sky-500/50 hover:bg-sky-500/70">
+                                    <span class="px-1 line-clamp-1 rounded  bg-transparent  border border-solid border-gray-500 hover:bg-sky-500/70">
                                         {{ item.name }}
                                     </span>
 
