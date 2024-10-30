@@ -15,24 +15,127 @@
           
           <div class="lg:col-span-9 col-span-12 ">
             <div class="mt-5 mb-14">
-              <div class="flex items-center justify-between mb-3">
+              <div >
                 <div>
-                  <CateTittle class="mb-3">Latest Manga Update</CateTittle>
+                  <CateTittle class="mb-3"> Latest update manga</CateTittle>
                 </div>
               </div>
               <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
-                <div class="col-span-1" v-for="item in newProducts.data">
+                <div class="col-span-1" v-for="item in newUpdatedProducts">
                   <div class="mb-3">
                     <ItemProductNormal :dataProduct="item" />
                   </div>
                 </div>
-              </div>
-              <div class="flex items-center justify-center mt-10 mb-3" v-if="newProducts.last_page > 1">
+                <div>
+                  <NuxtLink to="/manga?arange=new-updated">
+                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                    <div class="flex items-center justify-center border border-white w-full h-full">
+                        <div>
+                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <h3 class="text-white font-bold">View More</h3>
+                        </div>
+                    </div>
+                   </div>
 
-                <Pagination :urlPage="'/manga'" :totalPage="newProducts.last_page"
-                  :current_page="newProducts.current_page" @change-page="handleChangePage" />
+                  </NuxtLink>
+                </div>
               </div>
             </div>
+
+            <div class="mt-5 mb-14"  v-if="rawProducts.length > 0" >
+              <div >
+                <div>
+                  <CateTittle class="mb-3"> Latest Raw  manga</CateTittle>
+                </div>
+              </div>
+              <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
+                <div class="col-span-1" v-for="item in rawProducts">
+                  <div class="mb-3">
+                    <ItemProductNormal :dataProduct="item" />
+                  </div>
+                </div>
+                <div>
+                  <NuxtLink to="/manga?arange=new-updated&&category=1">
+                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                    <div class="flex items-center justify-center border border-white w-full h-full">
+                        <div>
+                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <h3 class="text-white font-bold">View More</h3>
+                        </div>
+                    </div>
+                   </div>
+
+                  </NuxtLink>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 mb-14"  v-if="subProducts.length >0">
+              <div >
+                <div>
+                  <CateTittle class="mb-3">  Latest Sub  manga</CateTittle>
+                </div>
+              </div>
+              <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
+                <div class="col-span-1" v-for="item in subProducts">
+                  <div class="mb-3">
+                    <ItemProductNormal :dataProduct="item" />
+                  </div>
+                </div>
+                <div>
+                  <NuxtLink to="/manga?arange=new-updated&category=2">
+                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                    <div class="flex items-center justify-center border border-white w-full h-full">
+                        <div>
+                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <h3 class="text-white font-bold">View More</h3>
+                        </div>
+                    </div>
+                   </div>
+
+                  </NuxtLink>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 mb-14" v-if="newProducts.length >0">
+              <div >
+                <div>
+                  <CateTittle class="mb-3"> New manga</CateTittle>
+                </div>
+              </div>
+              <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
+                <div class="col-span-1" v-for="item in newProducts">
+                  <div class="mb-3">
+                    <ItemProductNormal :dataProduct="item" />
+                  </div>
+                </div>
+                <div>
+                  <NuxtLink to="/manga?arange=new-created">
+                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                    <div class="flex items-center justify-center border border-white w-full h-full">
+                        <div>
+                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <h3 class="text-white font-bold">View More</h3>
+                        </div>
+                    </div>
+                   </div>
+
+                  </NuxtLink>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
           </div>
           <div class="lg:col-span-3 col-span-12">
             <div class="p-5 border-t  border-solid border-stone-500 h-full">
@@ -94,8 +197,11 @@ const vnwa = ref([]);
 await vnwaStore.fetchVnwaData()
 vnwa.value = vnwaStore.vnwa
 const highlightProducts = ref([])
-const newProducts = ref([])
 const loading = ref(true)
+const newUpdatedProducts = ref([])
+const newProducts = ref([])
+const rawProducts = ref([])
+const subProducts = ref([])
 
 // Hàm lấy dữ liệu từ API với số trang
 const fetchProducts = async (page = 1) => {
@@ -104,7 +210,10 @@ const fetchProducts = async (page = 1) => {
   const data = await response.json();
   if (response.ok) {
     highlightProducts.value = data.highlightProducts
+    newUpdatedProducts.value = data.newUpdatedProducts;
     newProducts.value = data.newProducts;
+    rawProducts.value = data.rawProducts;
+    subProducts.value = data.subProducts;
   } else {
     console.error(response);
   }
