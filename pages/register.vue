@@ -106,7 +106,7 @@ const handleRegister = async () => {
 
   try {
     await customerStore.register(form);
-    router.push('/user');
+    router.push('/');
   }  catch (error) {
   console.log('Lỗi đăng ký:', error);
 

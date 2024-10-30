@@ -160,7 +160,7 @@ export const useCustomerStore = defineStore('customer', {
         });
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message);
+          throw errorData;
         }
         const data = await response.json();
         this.saveSession(data.token);  // Lưu token vào session
