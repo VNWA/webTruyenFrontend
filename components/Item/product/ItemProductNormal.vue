@@ -48,9 +48,15 @@
                             </span>
                         </div>
                     </div>
-                    <span class="text-white/80 ">
-                        <Icon name="fa6-regular:eye" class="text-xl" /> {{ formatViews(view) }}
-                    </span>
+                  
+                    <div>
+                        <div class="text-white/80 mb-3 flex items-center justify-end gap-2">
+                        <Icon name="fa6-regular:eye" class="text-xl" /> <span class="w-6">{{ formatViews(view) }} </span>
+                    </div>
+                    <div class="text-white/80  flex items-center justify-end gap-2">
+                        <Icon name="material-symbols:bookmark-add" class="text-xl" />   <span class="w-6">{{  formatViews(dataProduct.countWishlist) }} </span>
+                    </div>
+                    </div>
                 </div>
             </div>
 
