@@ -149,7 +149,26 @@ export const useCustomerStore = defineStore('customer', {
         console.error('Notification Fetch Error:', error);
       }
     },
-
+    async register(customerData: Omit<Customer, 'token'> & { password_confirmation: string }) {
+      const router = useRouter();
+      try {
+        const config = useRuntimeConfig();
+        const response = await fetch(`${config.public.apiBase}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(customerData),
+        });
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message);
+        }
+        const data = await response.json();
+        this.saveSession(data.token);  // Lưu token vào session
+      } catch (error) {
+        console.error('Register Error:', error);
+        throw error;
+      }
+    },
     /**
      * Đánh dấu thông báo là đã xem.
      */
