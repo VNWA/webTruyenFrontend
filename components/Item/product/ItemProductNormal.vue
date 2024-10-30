@@ -24,7 +24,7 @@
             <div class="text-white text-sm mt-3 mb-1 capitalize ">
                 <NuxtLink :to="'/manga/' + dataProduct.slug">
 
-                    <h3 class="font-bold line-clamp-2 hover:text-sky-500 text-base">
+                    <h3 class="font-bold line-clamp-1  hover:text-sky-500 text-base">
                         {{ dataProduct.name }}
                     </h3>
                 </NuxtLink>

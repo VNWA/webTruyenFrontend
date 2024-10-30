@@ -48,14 +48,13 @@
                   <button class="text-gray-500  flex items-center justify-start gap-1" @click="handleToggleWishlist">
                     <Icon :class="{ 'text-cyan-500': isBookmark }" class="text-4xl"
                       name="material-symbols:bookmark-add" />
-                      <span class="text-lg text-white font-bold">{{count_wishlist}}</span>
+                    <span class="text-lg text-white font-bold">{{ count_wishlist }}</span>
                   </button>
                 </div>
                 <div class="" v-if="product">
                   <div class="text-gray-500  flex items-center justify-start gap-1">
-                    <Icon class="text-4xl"
-                      name="material-symbols-light:visibility-rounded" />
-                      <span class="text-lg text-white font-bold">{{product.views}}</span>
+                    <Icon class="text-4xl" name="material-symbols-light:visibility-rounded" />
+                    <span class="text-lg text-white font-bold">{{ product.views }}</span>
                   </div>
                 </div>
               </div>
@@ -220,14 +219,14 @@ const isComment = ref(false);
 const customerStore = useCustomerStore();
 const count_wishlist = ref(0)
 
-  const updateCountWishlist = async() =>{
-    const response = await fetch(config.public.apiBase + '/' + 'get-wishlist-count-with-product/' + route.params.slug);
-    if(response.ok){
-      const data = await response.json();
-      count_wishlist.value = data.count_wishlist
-    }
-
+const updateCountWishlist = async () => {
+  const response = await fetch(config.public.apiBase + '/' + 'get-wishlist-count-with-product/' + route.params.slug);
+  if (response.ok) {
+    const data = await response.json();
+    count_wishlist.value = data.count_wishlist
   }
+
+}
 
 const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
 const data = await response.json();
@@ -238,7 +237,7 @@ if (response.ok) {
   meta_desc.value = data.meta_desc
   product.value = data.product
   await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
-await  updateCountWishlist()
+  await updateCountWishlist()
 
   const storyData = {
     id: product.value.id,
@@ -265,7 +264,7 @@ onMounted(() => {
 const handleToggleWishlist = () => {
   if (customerStore.isAuthenticated) {
     loadingStore.start();
-    await  updateCountWishlist()
+     updateCountWishlist()
 
     customerStore.toggleWishlist(product.value.slug);
     customerStore.fetchWishlist();
