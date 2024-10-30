@@ -43,7 +43,7 @@
                   <div class="w-full">
                     <div class="mb-3">
                       <h3 class="border-l-4 border-sky-500 border-solid text-xl pl-3 text-white/80 font-bold">
-                        Top Views
+                        Top Trending
                       </h3>
                     </div>
                     <div class=" w-full">
@@ -59,7 +59,7 @@
                             </div>
                             <div class="col-span-8">
                               <div class="py-1">
-                                <h4 class="text-white/80 font-bold">{{ item.name }}</h4>
+                                <h4 class="text-white/80 font-bold ms-1">{{ item.name }}</h4>
                               </div>
                             </div>
                           </div>

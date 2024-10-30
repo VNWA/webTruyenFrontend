@@ -9,53 +9,59 @@
 
     <NuxtLayout>
 
-      <div>
-        <div>
+      <div class="grid grid-cols-12 gap-4">
+        <div class="lg:col-span-9 col-span-12">
+          <div>
           <PageTitle>History</PageTitle>
         </div>
         <div class="mt-5 mb-14">
           <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
             <div class="col-span-1" v-for="item in latestStories" :key="item.id">
-              <div>
-                <div class="relative product-item" v-if="item">
-                  <div class="logo transition-all duration-300 rounded-lg overflow-hidden">
-                    <NuxtLink :to="'/manga/' + item.slug">
-                      <div class="flex items-center justify-center  ">
-                        <NuxtImg quality="80" format="webp" :src="item.url_avatar"
-                          class="transition ease-in-out delay-150 bg-blue-500 	 w-100 duration-300" loading="lazy"
-                          alt="webtoonx" width="200" height="150" />
-                        <div
-                          class="absolute w-full h-full bg-black/5material-symbols-light:eye-tracking0 flex items-center justify-center play-icon   transition-all duration-150 delay-100	">
-                          <Icon name="material-symbols-light:eye-tracking"
-                            class="text-white transition-all duration-300" />
-                        </div>
-                        <div class="absolute left-0 top-0" v-if="item.highlight == 1">
-                          <div class="bg-red-600 uppercase px-1 py-1 z-20	rounded-lg  font-bold text-white">
-                            Hot
-                          </div>
-                        </div>
-                      </div>
-
-                    </NuxtLink>
-                  </div>
-                  <div class="text-white text-sm mt-3 mb-1 capitalize ">
-                    <NuxtLink :to="'/manga/' + item.slug">
-
-                      <h3 class="font-bold line-clamp-2 hover:text-sky-500">
-                        {{ item.name }}
-                      </h3>
-                    </NuxtLink>
-
-
-                  </div>
-
-
-
-                </div>
-              </div>
+              <ItemProductNormal :dataProduct="item" />
             </div>
           </div>
 
+        </div>
+        </div>
+        <div class="lg:col-span-3 col-span-12">
+          <div class="p-5 border-t  border-solid border-stone-500 h-full">
+
+
+            <div class="w-full sticky top-0 left-0">
+              <div class="flex items-center justify-between mb-3 w-full">
+                <div class="w-full">
+                  <div class="mb-3">
+                    <h3 class="border-l-4 border-sky-500 border-solid text-xl pl-3 text-white/80 font-bold">
+                      Top Trending
+                    </h3>
+                  </div>
+                  <div class=" w-full">
+                    <ul>
+                      <li v-for="(item, index) in vnwa.topViewProducts" :key="index" class="mb-5">
+                        <div class="grid grid-cols-12 gap-4">
+                          <div class="col-span-4">
+                            <NuxtLink :to="'/manga/' + item.slug" class="hover:text-cyan-500">
+                              <div>
+                                <NuxtImg :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
+                              </div>
+                            </NuxtLink>
+                          </div>
+                          <div class="col-span-8">
+                            <div class="py-1 ms-1">
+                              <h4 class="text-white/80 font-bold">{{ item.name }}</h4>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </div>
     </NuxtLayout>
@@ -68,4 +74,8 @@ const myHistoryStore = useMyHistoryStore();
 myHistoryStore.loadHistory();
 
 const latestStories = myHistoryStore.history.reverse()
+const vnwaStore = useMyVnwaStore()
+const vnwa = ref([]);
+await vnwaStore.fetchVnwaData()
+vnwa.value = vnwaStore.vnwa
 </script>
