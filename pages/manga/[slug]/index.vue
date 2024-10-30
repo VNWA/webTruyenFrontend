@@ -42,7 +42,23 @@
             <div class="lg:col-span-10 col-span-12 sm:py-2  lg:pl-5">
               <h1 class="sm:text-3xl  font-bold text-2xl  text-white mb-5">{{ product.name }}</h1>
               <h3 class="sm:text-base font-bold  text-xs text-white/50 mb-5">{{ product.full_name }}</h3>
+              <div class="mb-5 flex items-center justify-start gap-5">
 
+                <div class="" v-if="product">
+                  <button class="text-gray-500  flex items-center justify-start gap-1" @click="handleToggleWishlist">
+                    <Icon :class="{ 'text-cyan-500': isBookmark }" class="text-4xl"
+                      name="material-symbols:bookmark-add" />
+                      <span class="text-lg text-white font-bold">{{count_wishlist}}</span>
+                  </button>
+                </div>
+                <div class="" v-if="product">
+                  <div class="text-gray-500  flex items-center justify-start gap-1">
+                    <Icon class="text-4xl"
+                      name="material-symbols-light:visibility-rounded" />
+                      <span class="text-lg text-white font-bold">{{product.views}}</span>
+                  </div>
+                </div>
+              </div>
 
               <div class="w-full py-3">
                 <h3 class=" text-xl mb-3 text-white/80 font-bold">
@@ -90,12 +106,7 @@
 
               </div>
               <div class="flex flex-wrap items-center justify-start gap-6 mt-5">
-                <div class="" v-if="product">
-                  <button class="text-gray-500 bg-white" @click="handleToggleWishlist">
-                    <Icon :class="{ 'text-cyan-500': isBookmark }" class="text-4xl"
-                      name="material-symbols:bookmark-add" />
-                  </button>
-                </div>
+
                 <div>
                   <ShareButtons />
 
@@ -207,6 +218,17 @@ const loadingStore = useMyLoadingStore()
 const myHistoryStore = useMyHistoryStore() // Khởi tạo store
 const isComment = ref(false);
 const customerStore = useCustomerStore();
+const count_wishlist = ref(0)
+
+  const updateCountWishlist = async =>{
+    const response = await fetch(config.public.apiBase + '/' + 'get-wishlist-count-with-product/' + route.params.slug);
+    if(response.ok){
+      const data = await response.json();
+      count_wishlist.value = data.count_wishlist
+    }
+
+  }
+
 const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
 const data = await response.json();
 if (response.ok) {
@@ -215,8 +237,9 @@ if (response.ok) {
   meta_image.value = data.meta_image
   meta_desc.value = data.meta_desc
   product.value = data.product
-
   await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
+await  updateCountWishlist()
+
   const storyData = {
     id: product.value.id,
     name: product.value.name,
@@ -239,10 +262,10 @@ onMounted(() => {
   }
 })
 
-
 const handleToggleWishlist = () => {
   if (customerStore.isAuthenticated) {
     loadingStore.start();
+    await  updateCountWishlist()
 
     customerStore.toggleWishlist(product.value.slug);
     customerStore.fetchWishlist();

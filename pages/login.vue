@@ -67,7 +67,7 @@ const handleLogin = async () => {
   errorMessage.value = ''; // Reset error message
   try {
     await customerStore.login(username.value, password.value);
-    await router.push('/user');
+     router.back();
   } catch (error) {
     // Display error message if login fails
     errorMessage.value = error.message || 'Login failed. Please try again.';
