@@ -220,7 +220,7 @@ const isComment = ref(false);
 const customerStore = useCustomerStore();
 const count_wishlist = ref(0)
 
-  const updateCountWishlist = async =>{
+  const updateCountWishlist = async() =>{
     const response = await fetch(config.public.apiBase + '/' + 'get-wishlist-count-with-product/' + route.params.slug);
     if(response.ok){
       const data = await response.json();
