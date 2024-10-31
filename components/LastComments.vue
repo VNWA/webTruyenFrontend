@@ -9,7 +9,6 @@
    <div class="max-h-[200px] overflow-auto mt-3">
     <div v-html="scripts"></div>
    </div>
-
 </div>
 </template>
 

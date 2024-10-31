@@ -75,7 +75,9 @@
               </div>
             </div>
           </div>
-
+            <div class="mt-3 border w-full h-full px-2 py-2">
+              <div class=" text-center font-bold text-cyan-500" v-html="productDesc"></div>
+            </div>
           <div class="my-3">
             <ul class="flex items-center justify-center gap-4">
               <li v-for="(item,index) in episode.servers " :key="index" >
@@ -124,6 +126,7 @@ const next_episode = ref(null)
 const prev_episode = ref(null)
 const episodes = ref([])
 const productName = ref('')
+const productDesc = ref('')
 const config = useRuntimeConfig();
 const route = useRoute();
 const selected = ref('');
@@ -144,9 +147,12 @@ if (response.ok) {
   meta_desc.value = data.meta_image
   episode.value = data.episode
   episodes.value = data.episodes
+  
+  productDesc.value = data.product_desc
   productName.value = data.product_name
   next_episode.value = data.next_episode
   prev_episode.value = data.prev_episode
+  
   selected.value = route.params.episode
   if (data.episode.servers.length > 0) {
     pageContent.value = data.episode.servers[0].images

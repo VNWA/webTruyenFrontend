@@ -216,15 +216,7 @@
 
 <script setup>
 
-onMounted(() => {
-  // Tạo script Disqus
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://Manga18FX.disqus.com/recent_comments_widget.js?num_items=5&hide_mods=0&hide_avatars=0&avatar_size=32&excerpt_length=100';
-  
-  // Thêm script vào document
-  document.body.appendChild(script);
-});
+
 const title = ref('Manga  mới nhất')
 const meta_title = ref('Manga  mới nhất')
 const meta_image = ref('/images/website/logo-netmanga.png')
