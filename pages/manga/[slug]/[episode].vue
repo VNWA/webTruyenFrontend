@@ -75,9 +75,7 @@
               </div>
             </div>
           </div>
-            <div class="mt-3 border w-full h-full px-2 py-2">
-              <div class=" text-center font-bold text-cyan-500" v-html="productDesc"></div>
-            </div>
+        
           <div class="my-3">
             <ul class="flex items-center justify-center gap-4">
               <li v-for="(item,index) in episode.servers " :key="index" >
@@ -92,6 +90,9 @@
             </li>
            </ul>
           </div>
+          <div class="mt-3 border w-full h-full px-2 py-2">
+              <div class=" text-center font-bold text-cyan-500" v-html="productDesc"></div>
+            </div>
           <div class="flex items-center justify-center my-3">
             <ShareButtons />
           </div>
