@@ -3,18 +3,18 @@
     <header class="w-full  flex justify-center ">
       <div class="page-content w-full h-full lg:bg-black/70 shadow-lg shadow-cyan-500/50  bg-zinc-950">
         <div class="flex items-center justify-between w-full h-full lg:px-3 px-2 py-2">
-        
+
           <div class=" h-full flex items-center justify-start ">
             <div class="lg:hidden block">
-            <button aria-label="Show Menu" v-if="!isMobileMenu" @click="isMobileMenu = !isMobileMenu"
-              class="h-8 w-8 bg-gray-800/50  flex items-center justify-center me-3 active:bg-sky-500">
-              <Icon name="material-symbols:menu" class="text-4xl text-white" />
-            </button>
-            <button aria-label="Show Menu" v-else @click="isMobileMenu = !isMobileMenu"
-              class="h-8 w-8 bg-gray-800/50 rounded flex items-center justify-center me-3  text-white active:text-red-500">
-              <Icon name="mdi:close-outline" class="text-4xl" />
-            </button>
-          </div>
+              <button aria-label="Show Menu" v-if="!isMobileMenu" @click="isMobileMenu = !isMobileMenu"
+                class="h-8 w-8 bg-gray-800/50  flex items-center justify-center me-3 active:bg-sky-500">
+                <Icon name="material-symbols:menu" class="text-4xl text-white" />
+              </button>
+              <button aria-label="Show Menu" v-else @click="isMobileMenu = !isMobileMenu"
+                class="h-8 w-8 bg-gray-800/50 rounded flex items-center justify-center me-3  text-white active:text-red-500">
+                <Icon name="mdi:close-outline" class="text-4xl" />
+              </button>
+            </div>
             <div class="lg:w-56 lg:h-full  w-auto h-8    flex items-center justify-center">
               <NuxtLink to="/" class="h-full">
                 <h3 v-if="!vnwa" class="text-white/80 font-bold text-xl">webtoonx</h3>
@@ -74,7 +74,7 @@
                     History
                   </NuxtLink>
                 </li>
-              
+
               </ul>
 
             </div>
@@ -94,7 +94,8 @@
                 class="bg-white/90 text-black lg:w-10 lg:h-10 w-8 h-8 rounded-full flex items-center justify-center relative">
 
                 <icon name="fa6-solid:user" class="md:text-xl text-lg -z-1  text-black" />
-                  <div v-if="customerStore.newNotificationsCount >0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 "></div>
+                <div v-if="customerStore.newNotificationsCount > 0"
+                  class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 "></div>
               </button>
             </NuxtLink>
             <button aria-label="Show Modal Search"
@@ -120,21 +121,53 @@
                 Home
               </h3>
             </NuxtLink>
+          <li class="  font-bold    border-b border-gray-100/20">
+            <NuxtLink to="/trending">
+              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
+                Trending
+              </h3>
+            </NuxtLink>
 
           </li>
+          </li>
+          <li class="  font-bold    border-b border-gray-100/20">
+            <NuxtLink to="/manga?category=1">
+              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
+                Raw
+              </h3>
+            </NuxtLink>
+
+          </li>
+          <li class="  font-bold    border-b border-gray-100/20">
+            <NuxtLink to="/manga?category=2">
+              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
+                Sub
+              </h3>
+            </NuxtLink>
+
+          </li>
+          <li class="  font-bold    border-b border-gray-100/20">
+            <NuxtLink to="/manga?is_complete=1">
+              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
+                Completed
+              </h3>
+            </NuxtLink>
+
+          </li>
+
 
 
 
           <li class="font-bold   border-b border-gray-100/20">
             <span>
               <h3 class=" py-3 px-3  font-bold active:bg-sky-500">
-                Type
+                Nations
               </h3>
             </span>
             <div class="w-full ">
               <div class="grid grid-cols-2">
-                <div class="col-span-1 " v-for="item in vnwa.dataType">
-                  <NuxtLink :to="'/type-' + item.slug">
+                <div class="col-span-1 " v-for="item in vnwa.nations">
+                  <NuxtLink :to="'/manga?nation=' + item.slug">
                     <h5 class="px-3 py-2 font-medium text-base  active:text-sky-600">
                       - {{ item.name }}
                     </h5>
@@ -151,14 +184,7 @@
             </NuxtLink>
 
           </li>
-          <li class="  font-bold    border-b border-gray-100/20">
-            <NuxtLink to="/trending">
-              <h3 class="  py-3 px-3  font-bold active:bg-sky-500">
-                Trending
-              </h3>
-            </NuxtLink>
 
-          </li>
         </ul>
       </div>
     </div>
@@ -211,9 +237,9 @@ const customerStore = useCustomerStore();
 const newNotificationCount = ref(0);
 const loadingStore = useMyLoadingStore();
 const isLoading = computed(() => loadingStore.isLoading);
-onMounted( () => {
-   customerStore.loadCountNewNotification()
-   newNotificationCount.value = customerStore.newNotificationsCount
+onMounted(() => {
+  customerStore.loadCountNewNotification()
+  newNotificationCount.value = customerStore.newNotificationsCount
 
 
 })
