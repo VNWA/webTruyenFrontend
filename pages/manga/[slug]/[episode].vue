@@ -85,7 +85,7 @@
           </div>
           <div class="my-5 min-h-screen">
            <ul class="max-w-3xl mx-auto">
-            <li v-for="(item,index) in pageContent" :key="index" class="border-b">
+            <li v-for="(item,index) in pageContent" :key="index" class="">
               <NuxtImg :src="item" class="w-full h-auto" />
             </li>
            </ul>
