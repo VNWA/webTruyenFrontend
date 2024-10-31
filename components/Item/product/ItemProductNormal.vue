@@ -29,12 +29,14 @@
                     </h3>
                 </NuxtLink>
 
-                <div v-if="view || dataProduct.newEpisode.length > 0" class="flex items-start justify-between gap-4 mt-3">
+                <div v-if="view || reversedChapters.length > 0"
+                    class="flex items-start justify-between gap-4 mt-3">
                     <div>
-                        <div v-if="dataProduct.newEpisode.length > 0">
-                            <div v-for="(item, index) in dataProduct.newEpisode" :key="index" class="mb-3">
+                        <div v-if="reversedChapters.length > 0">
+                            <div v-for="(item, index) in reversedChapters" :key="index" class="mb-3">
                                 <NuxtLink :to="'/manga/' + dataProduct.slug + '/' + item.slug">
-                                    <span class="px-1 line-clamp-1 rounded  bg-transparent  border border-solid border-gray-500 hover:bg-sky-500/70">
+                                    <span
+                                        class="px-1 line-clamp-1 rounded  bg-transparent  border border-solid border-gray-500 hover:bg-sky-500/70">
                                         {{ item.name }}
                                     </span>
 
@@ -48,14 +50,16 @@
                             </span>
                         </div>
                     </div>
-                  
+
                     <div>
                         <div class="text-white/80 mb-3 flex items-center justify-end gap-2">
-                        <Icon name="fa6-regular:eye" class="text-xl" /> <span class="w-6">{{ formatViews(view) }} </span>
-                    </div>
-                    <div class="text-white/80  flex items-center justify-end gap-2">
-                        <Icon name="material-symbols:bookmark-add" class="text-xl" />   <span class="w-6">{{  formatViews(dataProduct.countWishlist) }} </span>
-                    </div>
+                            <Icon name="fa6-regular:eye" class="text-xl" /> <span class="w-6">{{ formatViews(view) }}
+                            </span>
+                        </div>
+                        <div class="text-white/80  flex items-center justify-end gap-2">
+                            <Icon name="material-symbols:bookmark-add" class="text-xl" /> <span class="w-6">{{
+                                formatViews(dataProduct.countWishlist) }} </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,15 +84,12 @@ const formatViews = (views) => {
     }
     return views; // Trả về số nguyên nếu dưới 1000
 };
-// const reversedChapters = computed(() => {
-//     if(props.dataProduct.newEpisode){
-
-//         return [...props.dataProduct.newEpisode].reverse(); // Đảo ngược mảng chapters
-//     }else{
-//         return []
-//     }
-// });
+const reversedChapters = computed(() => {
+    if (props.dataProduct.newEpisode) {
+        return [...props.dataProduct.newEpisode].reverse(); // Đảo ngược mảng chapters
+    } else {
+        return []
+    }
+});
 </script>
-<style lang="css">
-
-</style>
+<style lang="css"></style>
