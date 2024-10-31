@@ -29,10 +29,10 @@
                     </h3>
                 </NuxtLink>
 
-                <div v-if="view || reversedChapters.length > 0" class="flex items-start justify-between gap-4 mt-3">
+                <div v-if="view || dataProduct.newEpisode.length > 0" class="flex items-start justify-between gap-4 mt-3">
                     <div>
-                        <div v-if="reversedChapters.length > 0">
-                            <div v-for="(item, index) in reversedChapters" :key="index" class="mb-3">
+                        <div v-if="dataProduct.newEpisode.length > 0">
+                            <div v-for="(item, index) in dataProduct.newEpisode" :key="index" class="mb-3">
                                 <NuxtLink :to="'/manga/' + dataProduct.slug + '/' + item.slug">
                                     <span class="px-1 line-clamp-1 rounded  bg-transparent  border border-solid border-gray-500 hover:bg-sky-500/70">
                                         {{ item.name }}
@@ -80,14 +80,14 @@ const formatViews = (views) => {
     }
     return views; // Trả về số nguyên nếu dưới 1000
 };
-const reversedChapters = computed(() => {
-    if(props.dataProduct.newEpisode){
+// const reversedChapters = computed(() => {
+//     if(props.dataProduct.newEpisode){
 
-        return [...props.dataProduct.newEpisode].reverse(); // Đảo ngược mảng chapters
-    }else{
-        return []
-    }
-});
+//         return [...props.dataProduct.newEpisode].reverse(); // Đảo ngược mảng chapters
+//     }else{
+//         return []
+//     }
+// });
 </script>
 <style lang="css">
 
