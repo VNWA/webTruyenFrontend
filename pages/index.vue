@@ -12,10 +12,10 @@
           <Slide :data="highlightProducts" />
         </div>
         <div class="grid grid-cols-12 gap-6">
-          
+
           <div class="lg:col-span-9 col-span-12 ">
             <div class="mt-5 mb-14">
-              <div >
+              <div>
                 <div>
                   <CateTittle class="mb-3"> Latest update manga</CateTittle>
                 </div>
@@ -28,24 +28,26 @@
                 </div>
                 <div>
                   <NuxtLink to="/manga?arange=new-updated">
-                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
-                    <div class="flex items-center justify-center border border-white w-full h-full">
+                    <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                      <div class="flex items-center justify-center border border-white w-full h-full">
                         <div>
-                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <div class="text-center mb-4">
+                            <Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" />
+                          </div>
                           <h3 class="text-white font-bold">View More</h3>
                         </div>
+                      </div>
                     </div>
-                   </div>
 
                   </NuxtLink>
                 </div>
               </div>
             </div>
 
-            <div class="mt-5 mb-14"  v-if="rawProducts.length > 0" >
-              <div >
+            <div class="mt-5 mb-14" v-if="rawProducts.length > 0">
+              <div>
                 <div>
-                  <CateTittle class="mb-3"> Latest Raw  manga</CateTittle>
+                  <CateTittle class="mb-3"> Latest Raw manga</CateTittle>
                 </div>
               </div>
               <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
@@ -56,24 +58,26 @@
                 </div>
                 <div>
                   <NuxtLink to="/manga?arange=new-updated&&category=1">
-                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
-                    <div class="flex items-center justify-center border border-white w-full h-full">
+                    <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                      <div class="flex items-center justify-center border border-white w-full h-full">
                         <div>
-                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <div class="text-center mb-4">
+                            <Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" />
+                          </div>
                           <h3 class="text-white font-bold">View More</h3>
                         </div>
+                      </div>
                     </div>
-                   </div>
 
                   </NuxtLink>
                 </div>
               </div>
             </div>
 
-            <div class="mt-5 mb-14"  v-if="subProducts.length >0">
-              <div >
+            <div class="mt-5 mb-14" v-if="subProducts.length > 0">
+              <div>
                 <div>
-                  <CateTittle class="mb-3">  Latest Sub  manga</CateTittle>
+                  <CateTittle class="mb-3"> Latest Sub manga</CateTittle>
                 </div>
               </div>
               <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
@@ -84,22 +88,24 @@
                 </div>
                 <div>
                   <NuxtLink to="/manga?arange=new-updated&category=2">
-                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
-                    <div class="flex items-center justify-center border border-white w-full h-full">
+                    <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                      <div class="flex items-center justify-center border border-white w-full h-full">
                         <div>
-                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <div class="text-center mb-4">
+                            <Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" />
+                          </div>
                           <h3 class="text-white font-bold">View More</h3>
                         </div>
+                      </div>
                     </div>
-                   </div>
 
                   </NuxtLink>
                 </div>
               </div>
             </div>
 
-            <div class="mt-5 mb-14" v-if="newProducts.length >0">
-              <div >
+            <div class="mt-5 mb-14" v-if="newProducts.length > 0">
+              <div>
                 <div>
                   <CateTittle class="mb-3"> New manga</CateTittle>
                 </div>
@@ -112,14 +118,16 @@
                 </div>
                 <div>
                   <NuxtLink to="/manga?arange=new-created">
-                   <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
-                    <div class="flex items-center justify-center border border-white w-full h-full">
+                    <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
+                      <div class="flex items-center justify-center border border-white w-full h-full">
                         <div>
-                          <div class="text-center mb-4"><Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" /></div>
+                          <div class="text-center mb-4">
+                            <Icon name="material-symbols:tab-new-right-sharp" class="text-4xl text-white" />
+                          </div>
                           <h3 class="text-white font-bold">View More</h3>
                         </div>
+                      </div>
                     </div>
-                   </div>
 
                   </NuxtLink>
                 </div>
@@ -139,7 +147,9 @@
           </div>
           <div class="lg:col-span-3 col-span-12">
             <div class="p-5 border-t  border-solid border-stone-500 h-full">
-
+              <div class="mb-5 text-white relative">
+                <LastComments />
+              </div>
 
               <div class="w-full sticky top-0 left-0">
                 <div class="flex items-center justify-between mb-3 w-full">
@@ -153,16 +163,24 @@
                       <ul>
                         <li v-for="(item, index) in vnwa.topViewProducts" :key="index" class="mb-5">
                           <div class="grid grid-cols-12 gap-4">
+                            <div class="col-span-1">
+                              <div class="flex items-center justify-center h-full w-full">
+                                <h5 class="font-bold text-white text-xl">
+                                  {{ index + 1 }}
+
+                                </h5>
+                              </div>
+                            </div>
                             <div class="col-span-4">
                               <NuxtLink :to="'/manga/' + item.slug" class="hover:text-cyan-500">
                                 <div>
-                                  <NuxtImg :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
+                                  <NuxtImg :src="item.url_avatar" width="80" class="max-w-[80px] w-full h-auto" />
                                 </div>
                               </NuxtLink>
                             </div>
-                            <div class="col-span-8">
+                            <div class="col-span-7">
                               <div class="py-1">
-                                <h4 class="text-white/80 font-bold ms-1">{{ item.name }}</h4>
+                                <h4 class="text-white/80  text-base font-bold ms-1 line-clamp-2">{{ item.name }}</h4>
                               </div>
                             </div>
                           </div>
@@ -179,7 +197,7 @@
           </div>
 
         </div>
-   
+
 
       </div>
 

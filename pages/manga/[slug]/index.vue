@@ -42,6 +42,7 @@
             <div class="lg:col-span-10 col-span-12 sm:py-2  lg:pl-5">
               <h1 class="sm:text-3xl  font-bold text-2xl  text-white mb-5">{{ product.name }}</h1>
               <h3 class="sm:text-base font-bold  text-xs text-white/50 mb-5">{{ product.full_name }}</h3>
+
               <div class="mb-5 flex items-center justify-start gap-5">
 
                 <div class="" v-if="product">
@@ -58,7 +59,22 @@
                   </div>
                 </div>
               </div>
-
+              <div class="mb-3 flex items-start justify-start text-white gap-4">
+                <h3>Types:</h3>
+                <div v-if="product.types.length >0" >
+                  <ul class="flex flex-wrap items-start justify-start gap-2">
+                    <li v-for="(item,index) in product.types" :key="index" class="mb-2">
+                      <NuxtLink :to="'/manga?type='+item.id">
+                           <span class="border px-2 py-1 rounded-lg hover:bg-blue-500">
+                            {{ item.name }}
+                           </span>
+                      </NuxtLink>
+                    </li>
+                   
+                  </ul>
+                </div>
+                <div v-else class=""> Updating</div>
+              </div>
               <div class="w-full py-3">
                 <h3 class=" text-xl mb-3 text-white/80 font-bold">
                   Summary </h3>
@@ -200,6 +216,15 @@
 
 <script setup>
 
+onMounted(() => {
+  // Tạo script Disqus
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = 'https://Manga18FX.disqus.com/recent_comments_widget.js?num_items=5&hide_mods=0&hide_avatars=0&avatar_size=32&excerpt_length=100';
+  
+  // Thêm script vào document
+  document.body.appendChild(script);
+});
 const title = ref('Manga  mới nhất')
 const meta_title = ref('Manga  mới nhất')
 const meta_image = ref('/images/website/logo-netmanga.png')
@@ -264,7 +289,7 @@ onMounted(() => {
 const handleToggleWishlist = () => {
   if (customerStore.isAuthenticated) {
     loadingStore.start();
-     updateCountWishlist()
+    updateCountWishlist()
 
     customerStore.toggleWishlist(product.value.slug);
     customerStore.fetchWishlist();
