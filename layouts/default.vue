@@ -23,21 +23,44 @@
               </NuxtLink>
             </div>
             <div class="h-full lg:block hidden">
-              <ul class="header-menu">
-
-
+              <ul class="header-menu uppercase">
 
                 <li>
+                  <NuxtLink to="/">
+                    Home
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink to="/trending">
+                    Trending
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink to="/manga?category=1">
+                    Raw
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink to="/manga?category=2">
+                    Sub
+                  </NuxtLink>
+                </li>
+                <li>
+                  <NuxtLink to="/manga?is_complete=1">
+                    Completed
+                  </NuxtLink>
+                </li>
+                <li>
                   <span>
-                    Type
+                    Nations
                     <span style="margin-top: -10px;">
                       <icon name="fa6-solid:sort-down" />
                     </span>
                   </span>
                   <div class=" sub-menu z-10  absolute top-full left-0 bg-black/90">
-                    <ul class="grid grid-cols-12 gap-4 w-full p-5 " v-if="vnwa && vnwa.dataType.length > 0">
-                      <li class="col-span-4" v-for="item in vnwa.dataType">
-                        <NuxtLink :to="'/type-' + item.slug"
+                    <ul class="grid grid-cols-12 gap-4 w-full p-5 " v-if="vnwa && vnwa.nations.length > 0">
+                      <li class="col-span-4" v-for="item in vnwa.nations">
+                        <NuxtLink :to="'/manga?nation=' + item.id"
                           class="text-base w-full text-white/80 flex items-center justif-start">
                           <icon name="fa6-solid:caret-right" class="text-xl me-2" /> {{ item.name }}
                         </NuxtLink>
@@ -51,11 +74,7 @@
                     History
                   </NuxtLink>
                 </li>
-                <li>
-                  <NuxtLink to="/trending">
-                    Trending
-                  </NuxtLink>
-                </li>
+              
               </ul>
 
             </div>
@@ -248,7 +267,7 @@ header {
 }
 
 .router-link-active {
-  color: skyblue !important;
+  /* color: skyblue !important; */
 }
 
 header .logo {

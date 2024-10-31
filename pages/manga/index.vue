@@ -89,6 +89,23 @@
                 </div>
               </div>
               <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
+                <h3 class="text-center font-bold  text-lg mb-3"> Nations</h3>
+                <hr class="my-3">
+                <div class="px-3">
+
+                  <div class="mb-1" v-for="(item, index) in vnwa.nations" :key="index">
+
+                    <label :for="'checkboxNation' + item.id"
+                      class="flex items-center justify-start gap-4 font-bold text-base px-1 py-2 cursor-pointer">
+                      <input type="checkbox" :id="'checkboxNation'+ item.id" :value="item.id" v-model="selectedNations"
+                        @change="handleFilterChange">
+                      <span>{{ item.name }}</span>
+                    </label>
+                  </div>
+
+                </div>
+              </div>
+              <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
                 <h3 class="text-center font-bold  text-lg mb-3"> Types</h3>
                 <hr class="my-3">
                 <div class="px-3">
@@ -125,6 +142,7 @@ const products = ref([]);
 const loading = ref(true);
 const selectedCategories = ref([]); // Lưu trữ các category đã chọn
 const selectedTypes = ref([])
+const selectedNations = ref([]);
 const arange =ref('new-updated')
 const is_complete =ref(0)
 // Fetch data lần đầu khi component mounted
@@ -132,6 +150,11 @@ onMounted(() => {
   if (route.query.category) {
     selectedCategories.value = route.query.category.split(',').map(cat => cat.trim());
   }
+  if (route.query.nation) {
+    selectedNations.value = route.query.nation.split(',').map(item => item.trim());
+  }
+
+
   if (route.query.type) {
     selectedTypes.value = route.query.type.split(',').map(item => item.trim());
   }
@@ -170,13 +193,18 @@ const handleFilterChange = () => {
   const query = {};
   const categories = selectedCategories.value;
   const types = selectedTypes.value;
+  const nations = selectedNations.value;
 
+  
   // Chỉ thêm vào query nếu có giá trị
-  if (categories.length) {
+  if (categories.length >0) {
     query.category = categories.join(','); // Nối các category bằng dấu phẩy
   }
-  if (types.length) {
+  if (types.length >0) {
     query.type = types.join(','); // Nối các type bằng dấu phẩy
+  }
+  if (nations.length >0) {
+    query.nation = nations.join(','); // Nối các type bằng dấu phẩy
   }
   if (arange.value) {
     query.arange = arange.value; // Nối các type bằng dấu phẩy
