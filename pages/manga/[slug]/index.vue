@@ -150,9 +150,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { useMyVnwaStore, useMyLoadingStore, useMyHistoryStore, useCustomerStore } from '@/stores';
 
 const title = ref('Manga mới nhất');
 const meta_title = ref('Manga mới nhất');
