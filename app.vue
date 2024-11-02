@@ -13,7 +13,6 @@ useHead({
     return titleChunk ? `${titleChunk} | Manhwa18` : 'Manhwa18';
   },
   meta: [
-    { name: 'monetag', content: 'cac41a73e707d7bf37f01f545e2542ce' },
     { name: 'og:description', content: 'Manga Mới chất lượng cao miễn phí. Xem phim hd VietSub. Manga thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
     { name: 'description', content: 'Manga Mới chất lượng cao miễn phí. Xem phim hd VietSub. Manga thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
     { name: 'image', content: '/logo.jpeg' },

@@ -76,7 +76,7 @@
             </div>
 
 
-            <div class="mt-5 mb-14">
+            <div class="mt-5 mb-14" v-if="newUpdatedProducts && newUpdatedProducts.length >0">
               <div>
                 <div>
                   <CateTittle class="mb-3"> Latest update manga</CateTittle>
