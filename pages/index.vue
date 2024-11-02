@@ -225,8 +225,10 @@ const subProducts = ref([])
 const fetchProducts = async (page = 1) => {
   loading.value = true;
   const response = await fetch(`${config.public.apiBase}/get-data-home?page=${page}`);
-  const data = await response.json();
+
   if (response.ok) {
+  const data = await response.json();
+
     highlightProducts.value = data.highlightProducts
     newUpdatedProducts.value = data.newUpdatedProducts;
     newProducts.value = data.newProducts;

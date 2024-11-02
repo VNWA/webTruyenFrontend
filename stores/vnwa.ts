@@ -5,16 +5,16 @@ export const useMyVnwaStore = defineStore('vnwa', {
     vnwa: {}
   }),
   actions: {
-    async fetchVnwaData() {
+    fetchVnwaData() {
       try {
-        if (this.vnwa) {
-          const config = useRuntimeConfig()
-          const response = await fetch(config.public.apiBase + '/get-data-web');
-          if (response.ok) {
-            const data = await response.json();
-            this.vnwa = data;
-          }
+        // if (this.vnwa) {
+        const config = useRuntimeConfig()
+        const response = fetch(config.public.apiBase + '/get-data-web');
+        if (response.ok) {
+          const data = response.json();
+          this.vnwa = data;
         }
+        // }
       } catch (error) {
         console.error('Error fetching todos:', error);
       }
