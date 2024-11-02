@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="pagination" aria-label="Page navigation example" v-if="current_page">
-      <ul class="flex items-center -space-x-px h-10 text-base">
+      <ul class="flex flex-wrap items-center -space-x-px h-10 text-base">
         <li v-if="current_page > 1">
           <button
             @click="goToPage(current_page - 1)"

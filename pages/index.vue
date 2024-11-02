@@ -14,20 +14,21 @@
         <div class="grid grid-cols-12 gap-6">
 
           <div class="lg:col-span-9 col-span-12 ">
-            <div class="mt-5 mb-14">
+
+            <div class="mt-5 mb-14" v-if="subProducts && subProducts.length > 0">
               <div>
                 <div>
-                  <CateTittle class="mb-3"> Latest update manga</CateTittle>
+                  <CateTittle class="mb-3"> Latest Sub manga</CateTittle>
                 </div>
               </div>
               <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
-                <div class="col-span-1" v-for="item in newUpdatedProducts">
+                <div class="col-span-1" v-for="item in subProducts">
                   <div class="mb-3">
                     <ItemProductNormal :dataProduct="item" />
                   </div>
                 </div>
                 <div>
-                  <NuxtLink to="/manga?arange=new-updated">
+                  <NuxtLink to="/manga?arange=new-updated&category=2">
                     <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
                       <div class="flex items-center justify-center border border-white w-full h-full">
                         <div>
@@ -74,20 +75,21 @@
               </div>
             </div>
 
-            <div class="mt-5 mb-14" v-if="subProducts && subProducts.length > 0">
+
+            <div class="mt-5 mb-14">
               <div>
                 <div>
-                  <CateTittle class="mb-3"> Latest Sub manga</CateTittle>
+                  <CateTittle class="mb-3"> Latest update manga</CateTittle>
                 </div>
               </div>
               <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
-                <div class="col-span-1" v-for="item in subProducts">
+                <div class="col-span-1" v-for="item in newUpdatedProducts">
                   <div class="mb-3">
                     <ItemProductNormal :dataProduct="item" />
                   </div>
                 </div>
                 <div>
-                  <NuxtLink to="/manga?arange=new-updated&category=2">
+                  <NuxtLink to="/manga?arange=new-updated">
                     <div class="w-full h-full bg-black/80  p-3 shadow hover:bg-cyan-500/50 shadow-cyan-500">
                       <div class="flex items-center justify-center border border-white w-full h-full">
                         <div>
@@ -103,6 +105,10 @@
                 </div>
               </div>
             </div>
+
+         
+
+           
 
             <div class="mt-5 mb-14" v-if="newProducts && newProducts.length > 0">
               <div>
