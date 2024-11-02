@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   // ssr: false,
   app: {
     // pageTransition: { name: 'page', mode: 'out-in' },
-   
+
     head: {
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
@@ -38,16 +38,16 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: 'https://main.d3iqgblvocdgo2.amplifyapp.com',
+    url: 'https://manhwa18.com',
   },
   socialShare: {
-    baseUrl: 'https://main.d3iqgblvocdgo2.amplifyapp.com' // required!
+    baseUrl: 'https://manhwa18.com' // required!
     // other optional module options
   },
   runtimeConfig: {
     public: {
-      apiBase: 'https://demo1.vinawebapp.com/api/v1',
-      recaptchaSiteKey:'6LeH528qAAAAACZPtCIdP9fUP5viMvsEzSkCQHoN'
+      apiBase: 'https://cdn3.manhwa18.com/api/v1',
+      recaptchaSiteKey: '6LeH528qAAAAACZPtCIdP9fUP5viMvsEzSkCQHoN'
     },
   },
   disqus: {
