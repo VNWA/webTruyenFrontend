@@ -117,71 +117,58 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
 
-const title = ref('Manga tranh mới nhất');
-const meta_title = ref('Manga tranh mới nhất');
-const meta_image = ref('/images/website/logo-netmanga.png');
-const meta_desc = ref('Manga tranh mới nhất');
-const episode = ref([]);
-const next_episode = ref(null);
-const prev_episode = ref(null);
-const episodes = ref([]);
-const productName = ref('');
-const productDesc = ref('');
+const title = ref('Manga tranh mới nhất')
+const meta_title = ref('Manga tranh mới nhất')
+const meta_image = ref('/images/website/logo-netmanga.png')
+const meta_desc = ref('Manga tranh mới nhất')
+const episode = ref([])
+const next_episode = ref(null)
+const prev_episode = ref(null)
+const episodes = ref([])
+const productName = ref('')
+const productDesc = ref('')
 const config = useRuntimeConfig();
 const route = useRoute();
 const selected = ref('');
+const response = await fetch(config.public.apiBase + '/' + 'get-episode/' + route.params.slug + '/' + route.params.episode);
 const isComment = ref(false);
-const pageContent = ref([]);
-
-// Hàm để lấy dữ liệu episode
-const fetchEpisodeData = async () => {
-  try {
-    const response = await fetch(`${config.public.apiBase}/get-episode/${route.params.slug}/${route.params.episode}`);
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch episode data');
-    }
-
-    const data = await response.json();
-    
-    // Cập nhật các giá trị sau khi nhận dữ liệu
-    title.value = data.title;
-    meta_title.value = data.meta_title;
-    meta_image.value = data.meta_image; // Đã sửa lại để đúng với trường dữ liệu
-    meta_desc.value = data.meta_desc; // Đã sửa lại để đúng với trường dữ liệu
-    episode.value = data.episode;
-    episodes.value = data.episodes;
-    productDesc.value = data.product_desc;
-    productName.value = data.product_name;
-    next_episode.value = data.next_episode;
-    prev_episode.value = data.prev_episode;
-    selected.value = route.params.episode;
-
-    // Kiểm tra và cập nhật pageContent
-    if (data.episode.servers.length > 0) {
-      pageContent.value = data.episode.servers[0].images;
-    }
-
-    // Tăng lượt xem
-    await fetch(`${config.public.apiBase}/increment-views/${route.params.slug}`);
-    
-  } catch (error) {
-    console.error('Error fetching episode data:', error);
-  }
-};
-
 onMounted(() => {
   isComment.value = true;
-  fetchEpisodeData(); // Gọi hàm để lấy dữ liệu episode
-});
 
+})
+const pageIndex = ref(0)
+const pageContent = ref([])
+
+if (response.ok) {
+const data = await response.json();
+
+  title.value = data.title
+  meta_title.value = data.meta_title
+  meta_image.value = data.meta_desc
+  meta_desc.value = data.meta_image
+  episode.value = data.episode
+  episodes.value = data.episodes
+  
+  productDesc.value = data.product_desc
+  productName.value = data.product_name
+  next_episode.value = data.next_episode
+  prev_episode.value = data.prev_episode
+  
+  selected.value = route.params.episode
+  if (data.episode.servers.length > 0) {
+    pageContent.value = data.episode.servers[0].images
+  }
+  await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
+
+} else {
+  console.error(response)
+}
 const router = useRouter();
 const changeEpisode = () => {
-  router.push(`/manga/${route.params.slug}/${selected.value}`);
-};
+  router.push('/manga/' + route.params.slug + '/' + selected.value)
+}
+
 </script>
 
 <style></style>

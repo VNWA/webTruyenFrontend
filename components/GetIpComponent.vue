@@ -6,7 +6,6 @@
 </template>
 
 <script  setup>
-import { ref, watch } from 'vue';
 const {  data } = useFetch('https://api.ipify.org?format=json', {
  lazy: true
 });
