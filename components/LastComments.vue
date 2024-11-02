@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-  const  scripts = "<script src='https://webtoonx-3.disqus.com/recent_comments_widget.js?num_items=5&hide_mods=0&hide_avatars=0&avatar_size=32&excerpt_length=50'><\/script>"
+  const  scripts = "<script src='https://manhwa18.disqus.com/recent_comments_widget.js?num_items=5&hide_mods=0&hide_avatars=0&avatar_size=32&excerpt_length=50'><\/script>"
 
 //  useHead({
 //   script: [

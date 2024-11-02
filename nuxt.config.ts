@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     },
   },
   disqus: {
-    shortname: "webtoonx-3",
+    shortname: "manhwa18",
   },
   css: [
     '@/assets/css/main.css',

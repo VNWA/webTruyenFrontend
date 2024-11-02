@@ -5,20 +5,24 @@ export const useMyVnwaStore = defineStore('vnwa', {
     vnwa: {}
   }),
   actions: {
-    fetchVnwaData() {
+    async fetchVnwaData() {
       try {
-        // if (this.vnwa) {
-        const config = useRuntimeConfig()
-        const response = fetch(config.public.apiBase + '/get-data-web');
-        if (response.ok) {
-          const data = response.json();
-          this.vnwa = data;
+        // Kiểm tra nếu vnwa là một đối tượng rỗng hoặc không có dữ liệu
+        if (!this.vnwa || Object.keys(this.vnwa).length === 0) {
+          const config = useRuntimeConfig()
+          const response = await fetch(config.public.apiBase + '/get-data-web');
+
+          // Kiểm tra xem phản hồi có thành công hay không
+          if (response.ok) {
+            const data = await response.json();
+            this.vnwa = data;
+          } else {
+            console.error('Network response was not ok:', response.statusText);
+          }
         }
-        // }
       } catch (error) {
-        console.error('Error fetching todos:', error);
+        console.error('Error fetching vnwa data:', error);
       }
     }
   }
 });
-
