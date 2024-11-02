@@ -194,10 +194,10 @@
     <div class="w-full flex items-center justify-center pb-24">
       <div class="page-content w-full ">
         <div class="min-h-screen w-full bg-black/70 shadow-lg shadow-yellow-500/20">
-          <div class="lg:border border-b border-l border-solid border-yellow-500 p-2 text-sm text-white/80 text-center">
+          <!-- <div class="lg:border border-b border-l border-solid border-yellow-500 p-2 text-sm text-white/80 text-center">
             <strong> Hoang Sa</strong> and <strong>Truong Sa</strong> archipelagos belong to Vietnam
-            <!-- <GetIpComponent /> -->
-          </div>
+            <GetIpComponent />
+          </div> -->
 
           <div class="w-full mt-3">
             <div class="grid grid-cols-12 gap-0">
