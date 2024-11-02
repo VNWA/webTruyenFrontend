@@ -61,7 +61,7 @@
               </div>
               <div class="mb-3 flex items-start justify-start text-white gap-4">
                 <h3>Types:</h3>
-                <div v-if="product.types.length >0" >
+                <div v-if="product && product.types && product.types.length >0" >
                   <ul class="flex flex-wrap items-start justify-start gap-2">
                     <li v-for="(item,index) in product.types" :key="index" class="mb-2">
                       <NuxtLink :to="'/manga?type='+item.id">
@@ -87,9 +87,9 @@
                 </div>
               </div>
               <div class="mt-5">
-                <div v-if="product.episodes.length > 2" class="flex items-center justify-start gap-6">
+                <div v-if="product && product.episodes &&  product.episodes.length > 2" class="flex items-center justify-start gap-6">
 
-                  <div v-if="product.episodes.length > 1">
+                  <div v-if="product && product.episodes && product.episodes.length > 1">
                     <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[product.episodes.length - 1].slug">
                       <button
                         class="text-white   rounded-lg bg-blue-800 active:bg-red-500 sm:px-5 px-3 sm:py-2 py-1 sm:text-xl text-base  font-bold flex items-center justify-center shadow shadow-blue-500/50">
