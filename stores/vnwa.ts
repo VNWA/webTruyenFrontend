@@ -10,8 +10,10 @@ export const useMyVnwaStore = defineStore('vnwa', {
         if (this.vnwa) {
           const config = useRuntimeConfig()
           const response = await fetch(config.public.apiBase + '/get-data-web');
-          const data = await response.json();
-          this.vnwa = data;
+          if (response.ok) {
+            const data = await response.json();
+            this.vnwa = data;
+          }
         }
       } catch (error) {
         console.error('Error fetching todos:', error);

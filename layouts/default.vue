@@ -58,7 +58,7 @@
                     </span>
                   </span>
                   <div class=" sub-menu z-10  absolute top-full left-0 bg-black/90">
-                    <ul class="grid grid-cols-12 gap-4 w-full p-5 " v-if="vnwa && vnwa.nations.length > 0">
+                    <ul class="grid grid-cols-12 gap-4 w-full p-5 " v-if="vnwa && vnwa.nations && vnwa.nations.length > 0">
                       <li class="col-span-4" v-for="item in vnwa.nations">
                         <NuxtLink :to="'/manga?nation=' + item.id"
                           class="text-base w-full text-white/80 flex items-center justif-start">
@@ -231,13 +231,14 @@
 <script setup>
 const vnwaStore = useMyVnwaStore()
 const vnwa = ref([]);
-await vnwaStore.fetchVnwaData()
-vnwa.value = vnwaStore.vnwa
+
 const customerStore = useCustomerStore();
 const newNotificationCount = ref(0);
 const loadingStore = useMyLoadingStore();
 const isLoading = computed(() => loadingStore.isLoading);
 onMounted(() => {
+   vnwaStore.fetchVnwaData()
+vnwa.value = vnwaStore.vnwa
   customerStore.loadCountNewNotification()
   newNotificationCount.value = customerStore.newNotificationsCount
 

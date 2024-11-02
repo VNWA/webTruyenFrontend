@@ -44,7 +44,7 @@
               </div>
             </div>
 
-            <div class="mt-5 mb-14" v-if="rawProducts.length > 0">
+            <div class="mt-5 mb-14" v-if="rawProducts && rawProducts.length > 0">
               <div>
                 <div>
                   <CateTittle class="mb-3"> Latest Raw manga</CateTittle>
@@ -74,7 +74,7 @@
               </div>
             </div>
 
-            <div class="mt-5 mb-14" v-if="subProducts.length > 0">
+            <div class="mt-5 mb-14" v-if="subProducts && subProducts.length > 0">
               <div>
                 <div>
                   <CateTittle class="mb-3"> Latest Sub manga</CateTittle>
@@ -104,7 +104,7 @@
               </div>
             </div>
 
-            <div class="mt-5 mb-14" v-if="newProducts.length > 0">
+            <div class="mt-5 mb-14" v-if="newProducts && newProducts.length > 0">
               <div>
                 <div>
                   <CateTittle class="mb-3"> New manga</CateTittle>
@@ -212,7 +212,7 @@
 const config = useRuntimeConfig();
 const vnwaStore = useMyVnwaStore()
 const vnwa = ref([]);
-await vnwaStore.fetchVnwaData()
+ vnwaStore.fetchVnwaData()
 vnwa.value = vnwaStore.vnwa
 const highlightProducts = ref([])
 const loading = ref(true)
