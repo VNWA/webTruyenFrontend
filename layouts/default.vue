@@ -17,9 +17,9 @@
             </div>
             <div class="lg:w-56 lg:h-full  w-auto h-8    flex items-center justify-center">
               <NuxtLink to="/" class="h-full">
-                <h3 v-if="!vnwa" class="text-white/80 font-bold text-xl">webtoonx</h3>
+                <h3 v-if="!vnwa" class="text-white/80 font-bold text-xl">Manhwa18</h3>
                 <NuxtImg v-else-if="vnwa && vnwa.dataWeb" class="logo w-full h-auto max-h-full"
-                  :src="vnwa.dataWeb.url_avatar_full" width="200" alt="webtoonx" />
+                  :src="vnwa.dataWeb.url_avatar_full" width="200" alt="Manhwa18" />
               </NuxtLink>
             </div>
             <div class="h-full lg:block hidden">

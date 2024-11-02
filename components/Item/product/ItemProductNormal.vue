@@ -6,7 +6,7 @@
                     <div class="flex items-center justify-center  w-full h-full ">
                         <NuxtImg quality="80" format="webp" :src="dataProduct.url_avatar"
                             class="transition ease-in-out delay-150 bg-blue-500 	 w-full h-auto  duration-300"
-                            loading="lazy" alt="webtoonx" width="150" height="250" />
+                            loading="lazy" alt="Manhwa18" width="150" height="250" />
                         <div
                             class="absolute w-full h-full bg-black/5material-symbols-light:eye-tracking0 flex items-center justify-center play-icon   transition-all duration-150 delay-100	">
                             <Icon name="material-symbols-light:eye-tracking"

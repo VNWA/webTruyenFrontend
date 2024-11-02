@@ -35,7 +35,7 @@
             <div class="lg:col-span-2 col-span-12 lg:mb-0 mb-5 ">
               <div class="flex justify-center">
 
-                <NuxtImg :src="product.url_avatar" class="lg:w-full w-40 h-auto" loading="lazy" alt="webtoonx"
+                <NuxtImg :src="product.url_avatar" class="lg:w-full w-40 h-auto" loading="lazy" alt="Manhwa18"
                   width="200" />
               </div>
             </div>
