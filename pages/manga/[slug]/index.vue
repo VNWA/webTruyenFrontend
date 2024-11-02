@@ -246,8 +246,9 @@ const updateCountWishlist = async () => {
 }
 
 const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
-const data = await response.json();
 if (response.ok) {
+const data = await response.json();
+
   title.value = data.title
   meta_title.value = data.meta_title
   meta_image.value = data.meta_image
