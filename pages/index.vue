@@ -218,7 +218,7 @@
 const config = useRuntimeConfig();
 const vnwaStore = useMyVnwaStore()
 const vnwa = ref([]);
- vnwaStore.fetchVnwaData()
+await vnwaStore.fetchVnwaData()
 vnwa.value = vnwaStore.vnwa
 const highlightProducts = ref([])
 const loading = ref(true)
