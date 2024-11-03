@@ -33,7 +33,7 @@
         <div class="lg:col-span-9 col-span-12">
           <div class="grid grid-cols-12" v-if="product ">
             <div class="lg:col-span-2 col-span-12 lg:mb-0 mb-5 ">
-              <div class="flex justify-center">
+              <div class="flex justify-center items-center">
 
                 <NuxtImg v-if="product.url_avatar " :src="product.url_avatar" class="lg:w-full w-40 h-auto" loading="lazy" alt="Manhwa18"
                   width="200" />
