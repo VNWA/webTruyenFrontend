@@ -35,7 +35,7 @@
             <div class="lg:col-span-2 col-span-12 lg:mb-0 mb-5 ">
               <div class="flex justify-center items-center">
 
-                <NuxtImg v-if="product.url_avatar " :src="product.url_avatar" class="lg:w-full w-40 h-auto" loading="lazy" alt="Manhwa18"
+                <NuxtImg  alt="manhwa18" v-if="product.url_avatar " :src="product.url_avatar" class="lg:w-full w-40 h-auto" loading="lazy" alt="Manhwa18"
                   width="200" />
               </div>
             </div>
@@ -187,7 +187,7 @@
                           <div class="col-span-4">
                             <NuxtLink :to="'/manga/' + item.slug" class="hover:text-cyan-500">
                               <div>
-                                <NuxtImg :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
+                                <NuxtImg  alt="manhwa18" :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
                               </div>
                             </NuxtLink>
                           </div>

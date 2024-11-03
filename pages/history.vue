@@ -42,7 +42,7 @@
                           <div class="col-span-4">
                             <NuxtLink :to="'/manga/' + item.slug" class="hover:text-cyan-500">
                               <div>
-                                <NuxtImg :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
+                                <NuxtImg  alt="manhwa18" :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
                               </div>
                             </NuxtLink>
                           </div>

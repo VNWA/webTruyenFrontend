@@ -15,9 +15,9 @@
                   <div class="logo transition-all duration-300 rounded-lg overflow-hidden">
                     <NuxtLink :to="'/manga/' + item.slug">
                       <div class="flex items-center justify-center  w-full h-full">
-                        <NuxtImg quality="80" format="webp" :src="item.url_avatar"
+                        <NuxtImg  alt="manhwa18" quality="80" format="webp" :src="item.url_avatar"
                           class="transition ease-in-out delay-150 bg-blue-500 	 w-100 duration-300" loading="lazy"
-                          alt="Manhwa18" width="200" height="150" />
+                          width="200" height="150" />
                         <div
                           class="absolute w-full h-full bg-black/5material-symbols-light:eye-tracking0 flex items-center justify-center play-icon   transition-all duration-150 delay-100	">
                           <Icon name="material-symbols-light:eye-tracking"

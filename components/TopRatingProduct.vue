@@ -8,10 +8,10 @@
                               <li class="relative mb-3 ">
                                    <NuxtLink :to="'/manga/' + item.slug" class="">
 
-                                        <NuxtImg v-if="item.url_bg" quality="80" format="webp" :src="item.url_bg"
+                                        <NuxtImg  alt="manhwa18" v-if="item.url_bg" quality="80" format="webp" :src="item.url_bg"
                                              class=" hover:brightness-50 w-full  h-auto" loading="lazy" alt="Manhwa18"
                                              width="200" height="150" />
-                                        <NuxtImg v-else quality="80" format="webp" src="meta_image.png"
+                                        <NuxtImg  alt="manhwa18" v-else quality="80" format="webp" src="meta_image.png"
                                              class=" hover:brightness-50 w-full  h-auto" loading="lazy" alt="Manhwa18"
                                              width="200" height="150" />
 
@@ -28,8 +28,8 @@
                                         <div
                                              class="grid grid-cols-12  w-full h-24 bg-black/50 hover:bg-black overflow-hidden text-white/80 hover:text-sky-500 ">
                                              <div class="col-span-3 h-full flex items-start justify-center p-1">
-                                                  <NuxtImg :src="item.url_avatar" class="w-full  h-auto" loading="lazy"
-                                                       alt="Manhwa18" width="70" height="140" />
+                                                  <NuxtImg  alt="manhwa18" :src="item.url_avatar" class="w-full  h-auto" loading="lazy"
+                                                      width="70" height="140" />
 
                                              </div>
                                              <div class="col-span-9 h-full p-1 py-3">
