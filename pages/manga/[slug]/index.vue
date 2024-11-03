@@ -87,7 +87,7 @@
                 </div>
               </div>
               <div class="mt-5">
-                <div v-if="product && product.episodes &&  product.episodes.length > 2" class="flex items-center justify-start gap-6">
+                <div v-if="product && product.episodes &&  product.episodes.length >= 0" class="flex items-center justify-start gap-6">
 
                   <div v-if="product && product.episodes && product.episodes.length > 1">
                     <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[product.episodes.length - 1].slug">
