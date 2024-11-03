@@ -9,10 +9,10 @@
                                    <NuxtLink :to="'/manga/' + item.slug" class="">
 
                                         <NuxtImg  alt="manhwa18" v-if="item.url_bg" quality="80" format="webp" :src="item.url_bg"
-                                             class=" hover:brightness-50 w-full  h-auto" loading="lazy" alt="Manhwa18"
+                                             class=" hover:brightness-50 w-full  h-auto" loading="lazy" 
                                              width="200" height="150" />
                                         <NuxtImg  alt="manhwa18" v-else quality="80" format="webp" src="meta_image.png"
-                                             class=" hover:brightness-50 w-full  h-auto" loading="lazy" alt="Manhwa18"
+                                             class=" hover:brightness-50 w-full  h-auto" loading="lazy" 
                                              width="200" height="150" />
 
                                         <div class="absolute bottom-0 left-0 p-2">
