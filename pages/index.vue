@@ -7,7 +7,7 @@
 
     <NuxtLayout>
 
-      <div v-if="!loading">
+      <div >
         <div>
           <Slide :data="highlightProducts" />
         </div>
@@ -76,7 +76,7 @@
             </div>
 
 
-            <div class="mt-5 mb-14" v-if="newUpdatedProducts && newUpdatedProducts.length >0">
+            <div class="mt-5 mb-14" v-if="newUpdatedProducts && newUpdatedProducts.length > 0">
               <div>
                 <div>
                   <CateTittle class="mb-3"> Latest update manga</CateTittle>
@@ -106,9 +106,9 @@
               </div>
             </div>
 
-         
 
-           
+
+
 
             <div class="mt-5 mb-14" v-if="newProducts && newProducts.length > 0">
               <div>
@@ -180,7 +180,8 @@
                             <div class="col-span-4">
                               <NuxtLink :to="'/manga/' + item.slug" class="hover:text-cyan-500">
                                 <div>
-                                  <NuxtImg  alt="manhwa18" :src="item.url_avatar" width="80" class="max-w-[80px] w-full h-auto" />
+                                  <NuxtImg alt="manhwa18" :src="item.url_avatar" width="80"
+                                    class="max-w-[80px] w-full h-auto" />
                                 </div>
                               </NuxtLink>
                             </div>
@@ -227,34 +228,34 @@ const newProducts = ref([])
 const rawProducts = ref([])
 const subProducts = ref([])
 
-// Hàm lấy dữ liệu từ API với số trang
-const fetchProducts = async (page = 1) => {
-  loading.value = true;
-  const response = await fetch(`${config.public.apiBase}/get-data-home?page=${page}`);
+const response = await fetch(`${config.public.apiBase}/get-data-home`);
 
-  if (response.ok) {
+if (response.ok) {
   const data = await response.json();
 
-    highlightProducts.value = data.highlightProducts
-    newUpdatedProducts.value = data.newUpdatedProducts;
-    newProducts.value = data.newProducts;
-    rawProducts.value = data.rawProducts;
-    subProducts.value = data.subProducts;
-  } else {
-    console.error(response);
-  }
-  loading.value = false;
+  highlightProducts.value = data.highlightProducts
+  newUpdatedProducts.value = data.newUpdatedProducts;
+  newProducts.value = data.newProducts;
+  rawProducts.value = data.rawProducts;
+  subProducts.value = data.subProducts;
 
-};
 
-// Gọi API lần đầu
-await fetchProducts();
+  useServerSeoMeta({
+    ogTitle: () => data.meta.metaTitle,
+    title: () => data.meta.metaTitle,
+    description: () => data.meta.metaDesc,
+    ogDescription: () => data.meta.metaDesc,
+    ogImage: () => data.meta.metaImage,
+    ogImageUrl: () => data.meta.metaImage,
+    twitterCard: () => 'summary_large_image',
+    twitterTitle: () => data.meta.metaTitle,
+    twitterDescription: () => data.meta.metaDesc,
+    twitterImage: () => data.meta.metaImage
+  })
 
-// Hàm xử lý khi trang thay đổi
-const handleChangePage = async (page) => {
-  await fetchProducts(page);
-};
-
+}else{
+  console.log(response)
+}
 
 
 </script>

@@ -13,15 +13,13 @@ useHead({
     return titleChunk ? `${titleChunk} | Manhwa18` : 'Manhwa18';
   },
   meta: [
-    { name: 'og:description', content: 'Manga Mới chất lượng cao miễn phí. Xem phim hd VietSub. Manga thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
-    { name: 'description', content: 'Manga Mới chất lượng cao miễn phí. Xem phim hd VietSub. Manga thuyết minh chất lượng HD. Kho phim chuẩn nhanh online hay hấp dẫn.' },
+    { name: 'title', content: 'Read Manhwa Online For Free [Big Collection] at Manhwa18' },
+    { name: 'og:title', content: 'Read Manhwa Online For Free [Big Collection] at Manhwa18' },
+    { name: 'og:description', content: 'Read Manhwa Online For Free - We have the latest high-quality collection of Manhwa with all of the updated chapters on daily.' },
+    { name: 'description', content: 'Read Manhwa Online For Free - We have the latest high-quality collection of Manhwa with all of the updated chapters on daily.' },
     { name: 'image', content: '/logo.jpeg' },
     { name: 'og:image', content: '/logo.jpeg' },
-  ],
-  // script: [
-  //     // Thêm tệp JavaScript từ thư mục public
-  //     { src: '/adsExoclick.js', body: true } // Sử dụng body: true để thêm script vào cuối thẻ body
-  //   ]
+  ]
 
 });
 </script>
@@ -36,5 +34,4 @@ useHead({
   opacity: 0;
   filter: blur(1rem);
 }
-
 </style>

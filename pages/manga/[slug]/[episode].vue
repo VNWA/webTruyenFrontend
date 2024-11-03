@@ -1,12 +1,6 @@
 <template>
   <div>
-    <Title> {{ title }}</Title>
-    <Meta name="title" :content="meta_title" />
-    <Meta name="og:title" :content="meta_title" />
-    <Meta name="image" :content="meta_image" />
-    <Meta name="og:image" :content="meta_image" />
-    <Meta name="description" :content="meta_desc" />
-    <Meta name="og:description" :content="meta_desc" />
+  
     <NuxtLayout>
 
         <div>
@@ -143,10 +137,22 @@ const pageContent = ref([])
 if (response.ok) {
 const data = await response.json();
 
-  title.value = data.title
-  meta_title.value = data.meta_title
-  meta_image.value = data.meta_desc
-  meta_desc.value = data.meta_image
+
+
+
+useServerSeoMeta({
+    ogTitle: () => data.meta.metaTitle,
+    title: () => data.meta.metaTitle,
+    description: () => data.meta.metaDesc,
+    ogDescription: () => data.meta.metaDesc,
+    ogImage: () => data.meta.metaImage,
+    ogImageUrl: () => data.meta.metaImage,
+    twitterCard: () => 'summary_large_image',
+    twitterTitle: () => data.meta.metaTitle,
+    twitterDescription: () => data.meta.metaDesc,
+    twitterImage: () => data.meta.metaImage
+  })
+
   episode.value = data.episode
   episodes.value = data.episodes
   

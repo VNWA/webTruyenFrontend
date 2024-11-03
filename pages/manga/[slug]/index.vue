@@ -1,12 +1,5 @@
 <template>
   <div>
-    <Title> {{ title }}</Title>
-    <Meta name="title" :content="meta_title" />
-    <Meta name="og:title" :content="meta_title" />
-    <Meta name="image" :content="meta_image" />
-    <Meta name="og:image" :content="meta_image" />
-    <Meta name="description" :content="meta_desc" />
-    <Meta name="og:description" :content="meta_desc" />
     <NuxtLayout>
 
       <div>
@@ -31,12 +24,12 @@
       </div>
       <div class="grid grid-cols-12 gap-4">
         <div class="lg:col-span-9 col-span-12">
-          <div class="grid grid-cols-12" v-if="product ">
+          <div class="grid grid-cols-12" v-if="product">
             <div class="lg:col-span-2 col-span-12 lg:mb-0 mb-5 ">
               <div class="flex justify-center items-center">
 
-                <NuxtImg  alt="manhwa18" v-if="product.url_avatar " :src="product.url_avatar" class="lg:w-full w-40 h-auto" loading="lazy" 
-                  width="200" />
+                <NuxtImg alt="manhwa18" v-if="product.url_avatar" :src="product.url_avatar"
+                  class="lg:w-full w-40 h-auto" loading="lazy" width="200" />
               </div>
             </div>
             <div class="lg:col-span-10 col-span-12 sm:py-2  lg:pl-5">
@@ -61,16 +54,16 @@
               </div>
               <div class="mb-3 flex items-start justify-start text-white gap-4">
                 <h3>Types:</h3>
-                <div v-if="product && product.types && product.types.length >0" >
+                <div v-if="product && product.types && product.types.length > 0">
                   <ul class="flex flex-wrap items-start justify-start gap-2">
-                    <li v-for="(item,index) in product.types" :key="index" class="mb-2">
-                      <NuxtLink :to="'/manga?type='+item.id">
-                           <span class="border px-2 py-1 rounded-lg hover:bg-blue-500">
-                            {{ item.name }}
-                           </span>
+                    <li v-for="(item, index) in product.types" :key="index" class="mb-2">
+                      <NuxtLink :to="'/manga?type=' + item.id">
+                        <span class="border px-2 py-1 rounded-lg hover:bg-blue-500">
+                          {{ item.name }}
+                        </span>
                       </NuxtLink>
                     </li>
-                   
+
                   </ul>
                 </div>
                 <div v-else class=""> Updating</div>
@@ -87,7 +80,8 @@
                 </div>
               </div>
               <div class="mt-5">
-                <div v-if="product && product.episodes &&  product.episodes.length >= 0" class="flex items-center justify-start gap-6">
+                <div v-if="product && product.episodes && product.episodes.length >= 0"
+                  class="flex items-center justify-start gap-6">
 
                   <div v-if="product && product.episodes && product.episodes.length > 1">
                     <NuxtLink :to="'/manga/' + product.slug + '/' + product.episodes[product.episodes.length - 1].slug">
@@ -187,7 +181,7 @@
                           <div class="col-span-4">
                             <NuxtLink :to="'/manga/' + item.slug" class="hover:text-cyan-500">
                               <div>
-                                <NuxtImg  alt="manhwa18" :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
+                                <NuxtImg alt="manhwa18" :src="item.url_avatar" width="80" class="max-w-[80px] h-auto" />
                               </div>
                             </NuxtLink>
                           </div>
@@ -247,7 +241,20 @@ const updateCountWishlist = async () => {
 
 const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
 if (response.ok) {
-const data = await response.json();
+  const data = await response.json();
+
+  useServerSeoMeta({
+    ogTitle: () => data.meta.metaTitle,
+    title: () => data.meta.metaTitle,
+    description: () => data.meta.metaDesc,
+    ogDescription: () => data.meta.metaDesc,
+    ogImage: () => data.meta.metaImage,
+    ogImageUrl: () => data.meta.metaImage,
+    twitterCard: () => 'summary_large_image',
+    twitterTitle: () => data.meta.metaTitle,
+    twitterDescription: () => data.meta.metaDesc,
+    twitterImage: () => data.meta.metaImage
+  })
 
   title.value = data.title
   meta_title.value = data.meta_title

@@ -33,7 +33,10 @@ const config = useRuntimeConfig();
 
 const products = ref([]);
 const loading = ref(false);
-
+useServerSeoMeta({
+    ogTitle: () => "Trending",
+    title: () => "Trending",
+  })
 // Hàm kiểm tra có nhiều trang hay không
 const hasMultiplePages = computed(() => products.value.last_page > 1);
 
