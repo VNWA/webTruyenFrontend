@@ -60,7 +60,22 @@ export const useCustomerStore = defineStore('customer', {
         this.fetchCustomer(); // Lấy thông tin khách hàng từ server
       }
     },
+    async fetchSocialServices() {
+      if (!this.token) return null;
 
+      try {
+        const config = useRuntimeConfig();
+        const response = await fetch(`${config.public.apiBase}/get-login-social-services`);
+        if (response.ok) {
+          const data = await response.json();
+          return data;
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error('Fetch Customer Error:', error);
+      }
+    },
     /**
      * Lấy thông tin khách hàng từ API.
      */

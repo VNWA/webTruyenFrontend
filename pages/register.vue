@@ -29,15 +29,17 @@
                   <p v-if="errors.password" class="text-red-500 text-xs mt-1">{{ errors.password }}</p>
                 </div>
                 <div>
-                  <label class="text-sm" for="password_confirmation">Confirm Password <span class="text-primary">*</span></label>
+                  <label class="text-sm" for="password_confirmation">Confirm Password <span
+                      class="text-primary">*</span></label>
                   <input v-model="form.password_confirmation" id="password_confirmation" required
                     class="px-3 focus:border-gray-400 focus:outline-none border border-solid border-gray-300 w-full py-3"
                     type="password">
-                  <p v-if="errors.password_confirmation" class="text-red-500 text-xs mt-1">{{ errors.password_confirmation }}</p>
+                  <p v-if="errors.password_confirmation" class="text-red-500 text-xs mt-1">{{
+                    errors.password_confirmation }}</p>
                 </div>
               </div>
             </div>
-            
+
             <p v-if="errorMessage" class="text-red-500 text-center mt-3">{{ errorMessage }}</p>
 
             <div class="flex justify-between mt-4 items-center">
@@ -55,6 +57,8 @@
               </div>
             </div>
           </form>
+
+          <!-- div.mt-3.flex.items-center.justify-center -->
         </div>
       </div>
     </div>
@@ -64,11 +68,13 @@
 <script setup>
 const router = useRouter();
 const customerStore = useCustomerStore();
+const services = ref();
 onMounted(() => {
   customerStore.loadCustomerFromStorage();
   if (customerStore.isAuthenticated) {
     router.push('/user'); // Redirect to user page
   }
+  services.value = customerStore.fetchSocialServices();
 })
 const errorMessage = ref('');
 
@@ -107,20 +113,20 @@ const handleRegister = async () => {
   try {
     await customerStore.register(form);
     router.push('/');
-  }  catch (error) {
-  console.log('Lỗi đăng ký:', error);
+  } catch (error) {
+    console.log('Lỗi đăng ký:', error);
 
-  // Lưu thông tin lỗi vào biến errors để hiển thị
-  errors.value = Object.fromEntries(
-    Object.entries(error.errors || {}).map(([key, messages]) => [
-      key,
-      messages.join(', '), // Chuyển mảng lỗi thành chuỗi
-    ])
-  );
+    // Lưu thông tin lỗi vào biến errors để hiển thị
+    errors.value = Object.fromEntries(
+      Object.entries(error.errors || {}).map(([key, messages]) => [
+        key,
+        messages.join(', '), // Chuyển mảng lỗi thành chuỗi
+      ])
+    );
 
-  // Hiển thị thông báo lỗi chung (nếu cần)
-  errorMessage.value = error.message || 'Đăng ký thất bại. Vui lòng thử lại.';
-}
+    // Hiển thị thông báo lỗi chung (nếu cần)
+    errorMessage.value = error.message || 'Đăng ký thất bại. Vui lòng thử lại.';
+  }
 }
 </script>
 
