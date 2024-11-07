@@ -209,19 +209,10 @@
 </template>
 
 <script setup>
-
-
-const title = ref('Manga  mới nhất')
-const meta_title = ref('Manga  mới nhất')
-const meta_image = ref('/images/website/logo-netmanga.png')
-const meta_desc = ref('Manga  mới nhất')
 const product = ref([])
 const router = useRouter();
-const vnwaStore = useMyVnwaStore()
 const vnwa = ref([]);
-
-await vnwaStore.fetchVnwaData()
-vnwa.value = vnwaStore.vnwa
+const vnwaStore = useMyVnwaStore()
 const config = useRuntimeConfig();
 const route = useRoute();
 const loadingStore = useMyLoadingStore()
@@ -229,7 +220,39 @@ const myHistoryStore = useMyHistoryStore() // Khởi tạo store
 const isComment = ref(false);
 const customerStore = useCustomerStore();
 const count_wishlist = ref(0)
+const isBookmark = ref(false);
 
+const loadData = async () => {
+  const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
+  if (response.ok) {
+    const data = await response.json();
+
+    useServerSeoMeta({
+      ogTitle: () => data.meta.metaTitle,
+      title: () => data.meta.metaTitle,
+      description: () => data.meta.metaDesc,
+      ogDescription: () => data.meta.metaDesc,
+      ogImage: () => data.meta.metaImage,
+      ogImageUrl: () => data.meta.metaImage,
+      twitterCard: () => 'summary_large_image',
+      twitterTitle: () => data.meta.metaTitle,
+      twitterDescription: () => data.meta.metaDesc,
+      twitterImage: () => data.meta.metaImage
+    })
+
+    product.value = data.product
+    const storyData = {
+      id: product.value.id,
+      name: product.value.name,
+      slug: product.value.slug,
+      url_avatar: product.value.url_avatar
+    }
+    myHistoryStore.addToHistory(storyData)
+
+  } else {
+    console.error(response)
+  }
+}
 const updateCountWishlist = async () => {
   const response = await fetch(config.public.apiBase + '/' + 'get-wishlist-count-with-product/' + route.params.slug);
   if (response.ok) {
@@ -239,67 +262,41 @@ const updateCountWishlist = async () => {
 
 }
 
-const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
-if (response.ok) {
-  const data = await response.json();
-
-  useServerSeoMeta({
-    ogTitle: () => data.meta.metaTitle,
-    title: () => data.meta.metaTitle,
-    description: () => data.meta.metaDesc,
-    ogDescription: () => data.meta.metaDesc,
-    ogImage: () => data.meta.metaImage,
-    ogImageUrl: () => data.meta.metaImage,
-    twitterCard: () => 'summary_large_image',
-    twitterTitle: () => data.meta.metaTitle,
-    twitterDescription: () => data.meta.metaDesc,
-    twitterImage: () => data.meta.metaImage
-  })
-
-  title.value = data.title
-  meta_title.value = data.meta_title
-  meta_image.value = data.meta_image
-  meta_desc.value = data.meta_desc
-  product.value = data.product
-  await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
-  await updateCountWishlist()
-
-  const storyData = {
-    id: product.value.id,
-    name: product.value.name,
-    slug: product.value.slug,
-    url_avatar: product.value.url_avatar
-  }
-  myHistoryStore.addToHistory(storyData)
-
-} else {
-  console.error(response)
-}
-const isBookmark = ref(false);
-
-onMounted(() => {
-  isComment.value = true;
-  if (customerStore.isAuthenticated) {
-
-    customerStore.fetchWishlist();
-    isBookmark.value = customerStore.isWishlist(product.value.slug)
-  }
-})
-
-const handleToggleWishlist = () => {
+const handleToggleWishlist = async () => {
   if (customerStore.isAuthenticated) {
     loadingStore.start();
-    updateCountWishlist()
+    if (isBookmark.value) {
+      --count_wishlist.value
+    } else {
+      ++count_wishlist.value
 
-    customerStore.toggleWishlist(product.value.slug);
-    customerStore.fetchWishlist();
+    }
     isBookmark.value = !isBookmark.value
+
+    await customerStore.toggleWishlist(product.value.slug);
     loadingStore.stop();
   } else {
     router.push('/login')
   }
 
 };
+loadingStore.start();
+
+onMounted(async () => {
+  await customerStore.loadCustomerFromStorage()
+  isBookmark.value = await customerStore.checkProductIsWishlist(route.params.slug)
+  await vnwaStore.fetchVnwaData()
+  vnwa.value = vnwaStore.vnwa
+  await loadData();
+  await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
+  await updateCountWishlist()
+loadingStore.stop();
+
+})
+
+
+
+
 
 
 </script>

@@ -9,6 +9,25 @@
 <script setup>
 
 useHead({
+
+  script: [
+    { src: '//cdn.tsyndicate.com/sdk/v1/video.instant.message.js', body: true },
+    {
+      children: `
+        TSVideoInstantMessage({
+          spot: "5fdf1e2cf28744a68c6d4196ea0db92a",
+          width: "10%",
+          mobileWidth: "25%",
+          displayMode: "capped",
+          cappedAction: "click",
+          cappedValueInMinutes: 10,
+          showCTAButton: true,
+          hideOnComplete: false
+        });
+      `,
+      body: true
+    }
+  ],
   titleTemplate: (titleChunk) => {
     return titleChunk ? `${titleChunk} | Manhwa18` : 'Manhwa18';
   },

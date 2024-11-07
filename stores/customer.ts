@@ -16,14 +16,12 @@ export const useCustomerStore = defineStore('customer', {
   state: () => ({
     customer: null as Customer | null,
     newNotificationsCount: 0,
-    token: useCookie('token').value || null,
-    wishlistItems: {} as Record<string, Product>,
+    token: null as string | null,
     notifications: {},
   }),
 
   getters: {
     isAuthenticated: (state) => !!state.token,
-    isWishlist: (state) => (slug: string) => !!state.wishlistItems[slug],
   },
 
   actions: {
@@ -34,32 +32,40 @@ export const useCustomerStore = defineStore('customer', {
       this.token = null;
       this.customer = null;
       this.newNotificationsCount = 0;
-      this.wishlistItems = {};
       this.notifications = {};
-
-      const cookie = useCookie('token');
-      cookie.value = ''; // Xóa token khỏi cookie
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token'); // Xóa token khỏi localStorage chỉ khi ở client
+      }
     },
 
     /**
-     * Lưu token vào state và cookie.
+     * Lưu token vào state và localStorage.
      */
     saveSession(token: string) {
       this.token = token;
-      const cookie = useCookie('token');
-      cookie.value = token;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('token', token); // Lưu token vào localStorage chỉ khi ở client
+      }else{
+        console.log('no')
+      }
     },
 
     /**
-     * Load token và thông tin khách hàng từ cookie khi khởi động.
+     * Load token và thông tin khách hàng từ localStorage khi khởi động.
      */
     loadCustomerFromStorage() {
-      const savedToken = useCookie('token').value;
-      if (savedToken) {
-        this.token = savedToken;
-        this.fetchCustomer(); // Lấy thông tin khách hàng từ server
+      if (typeof window !== 'undefined') {
+        const savedToken = localStorage.getItem('token');
+        if (savedToken) {
+          this.token = savedToken;
+      
+        }
       }
     },
+
+    /**
+     * Fetch danh sách các dịch vụ đăng nhập xã hội.
+     */
     async fetchSocialServices() {
       if (!this.token) return null;
 
@@ -73,9 +79,10 @@ export const useCustomerStore = defineStore('customer', {
           return null;
         }
       } catch (error) {
-        console.error('Fetch Customer Error:', error);
+        console.error('Fetch Social Services Error:', error);
       }
     },
+
     /**
      * Lấy thông tin khách hàng từ API.
      */
@@ -147,7 +154,6 @@ export const useCustomerStore = defineStore('customer', {
      */
     async loadCountNewNotification() {
       if (!this.token) {
-        this.clearSession();
         return;
       }
 
@@ -164,6 +170,10 @@ export const useCustomerStore = defineStore('customer', {
         console.error('Notification Fetch Error:', error);
       }
     },
+
+    /**
+     * Đăng ký khách hàng mới.
+     */
     async register(customerData: Omit<Customer, 'token'> & { password_confirmation: string }) {
       const router = useRouter();
       try {
@@ -184,12 +194,12 @@ export const useCustomerStore = defineStore('customer', {
         throw error;
       }
     },
+
     /**
      * Đánh dấu thông báo là đã xem.
      */
     async setIsViewNotifications() {
       if (!this.token) {
-        this.clearSession();
         return;
       }
 
@@ -201,7 +211,6 @@ export const useCustomerStore = defineStore('customer', {
         });
       } catch (error) {
         console.error('Set View Notification Error:', error);
-        this.clearSession();
       }
     },
 
@@ -210,7 +219,6 @@ export const useCustomerStore = defineStore('customer', {
      */
     async loadNotifications() {
       if (!this.token) {
-        this.clearSession();
         return;
       }
 
@@ -232,7 +240,6 @@ export const useCustomerStore = defineStore('customer', {
      */
     async fetchWishlist() {
       if (!this.token) {
-        this.clearSession();
         return;
       }
 
@@ -243,14 +250,38 @@ export const useCustomerStore = defineStore('customer', {
         });
 
         if (!response.ok) throw new Error('Failed to fetch wishlist');
-        const wishlistData = await response.json();
 
-        this.wishlistItems = wishlistData.reduce((acc: Record<string, Product>, product: Product) => {
-          acc[product.slug] = product;
-          return acc;
-        }, {});
+        const wishlistData = await response.json();
+        return wishlistData;
       } catch (error) {
         console.error('Fetch Wishlist Error:', error);
+      }
+    },
+
+    /**
+     * Kiểm tra xem sản phẩm có trong danh sách yêu thích không.
+     */
+    async checkProductIsWishlist(slug: string) {
+      if (!this.token) {
+        console.log('no load check because not login')
+        return false;
+      }
+
+      try {
+        const config = useRuntimeConfig();
+        const response = await fetch(`${config.public.apiBase}/check-product-is-wishlist/` + slug, {
+          headers: { Authorization: `Bearer ${this.token}` },
+        });
+
+        if (!response.ok){
+          console.log(response)
+          return false
+        } 
+        const status = await response.json();
+        return status.status;
+      } catch (error) {
+        console.error('Fetch Wishlist Error:', error);
+        return false;
       }
     },
 
@@ -275,16 +306,14 @@ export const useCustomerStore = defineStore('customer', {
           body: JSON.stringify({ slug }),
         });
 
-        if (!response.ok) throw new Error('Failed to update wishlist');
+        if (!response.ok){
+          console.log(response)
+          return false
+        } 
+        const data = await response.json();
 
-        if (this.wishlistItems[slug]) {
-          delete this.wishlistItems[slug];
-          $toast.info('Product removed from wishlist');
-        } else {
-          const product: Product = await response.json();
-          this.wishlistItems[slug] = product;
-          $toast.success('Product added to wishlist');
-        }
+        $toast.success(data.message);
+
       } catch (error) {
         console.error('Toggle Wishlist Error:', error);
         $toast.error('Something went wrong. Please try again.');

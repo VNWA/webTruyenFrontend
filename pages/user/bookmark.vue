@@ -5,11 +5,11 @@
         <div class="w-full border">
           <div class="p-8 min-h-screen">
             <h1 class="text-3xl text-white text-center font-medium border-b pb-4 mb-5">Bookmark</h1>
-            <div v-if="customerStore.wishlistItems.length === 0" class="text-white text-center">
+            <div v-if="products.length === 0" class="text-white text-center">
               <p>Không có sản phẩm nào trong wishlist.</p>
             </div>
             <div class="grid lg:grid-cols-4 grid-cols-2 gap-4 text-white">
-              <div  v-for="(item,index) in customerStore.wishlistItems" :key="index">
+              <div  v-for="(item,index) in products" :key="index">
               <div>
                 <div class="relative product-item" v-if="item">
                   <div class="logo transition-all duration-300 rounded-lg overflow-hidden">
@@ -63,8 +63,11 @@ definePageMeta({
 });
 const customerStore = useCustomerStore(); // Khởi tạo store khách hàng
 // Lấy wishlist khi component được mounted
+const products = ref([])
+
+
 onMounted(async () => {
-  await customerStore.fetchWishlist();
+  products.value =  await customerStore.fetchWishlist();
 });
 
 // Phương thức toggle wishlist

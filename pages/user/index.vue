@@ -5,7 +5,7 @@
         <div class="w-full border">
           <div class="p-8 max-h-screen overflow-y-auto">
             <h1 class="text-3xl text-white text-center font-medium border-b pb-4 mb-5">Notifications</h1>
-            <div v-if="customerStore.wishlistItems.length === 0" class="text-white text-center">
+            <div v-if="customerStore.notifications.length === 0" class="text-white text-center">
               <p>Không có thông báo.</p>
             </div>
             <div class="py-3 px-5 text-white">

@@ -7,7 +7,24 @@
 
     <NuxtLayout>
 
-      <div >
+      <div>
+        <div v-if="adsBanner" class="ads_banner">
+          <div v-if="adsBanner.top_home">
+            <div v-if="adsBanner.top_home.isImage == 1 && adsBanner.top_home.image">
+              <a :href="adsBanner.top_home.link" target="_blank" rel="noopener noreferrer">
+                <NuxtImg :src="adsBanner.top_home.image" width="500" loading="lazy" class="w-full" />
+
+              </a>
+            </div>
+            <div v-else-if="adsBanner.top_home.isImage == 0 && adsBanner.top_home.iframe">
+              <div>
+                <div v-html="adsBanner.top_home.iframe"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
         <div>
           <Slide :data="highlightProducts" />
         </div>
@@ -16,6 +33,20 @@
           <div class="lg:col-span-9 col-span-12 ">
 
             <div class="mt-5 mb-14" v-if="subProducts && subProducts.length > 0">
+              <div v-if="adsBanner" class="ads_banner">
+                <div v-if="adsBanner.top_sub_manga">
+                  <div v-if="adsBanner.top_sub_manga.isImage == 1 && adsBanner.top_sub_manga.image">
+                    <a :href="adsBanner.top_sub_manga.link" target="_blank" rel="noopener noreferrer">
+                      <NuxtImg :src="adsBanner.top_sub_manga.image" width="500" loading="lazy" class="w-full" />
+                    </a>
+                  </div>
+                  <div v-else-if="adsBanner.top_sub_manga.isImage == 0 && adsBanner.top_sub_manga.iframe">
+                    <div>
+                      <div v-html="adsBanner.top_sub_manga.iframe"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div>
                 <div>
                   <CateTittle class="mb-3"> Latest Sub manga</CateTittle>
@@ -46,6 +77,20 @@
             </div>
 
             <div class="mt-5 mb-14" v-if="rawProducts && rawProducts.length > 0">
+              <div v-if="adsBanner" class="ads_banner">
+                <div v-if="adsBanner.top_raw_manga">
+                  <div v-if="adsBanner.top_raw_manga.isImage == 1 && adsBanner.top_raw_manga.image">
+                    <a :href="adsBanner.top_raw_manga.link" target="_blank" rel="noopener noreferrer">
+                      <NuxtImg :src="adsBanner.top_raw_manga.image" width="500" loading="lazy" class="w-full" />
+                    </a>
+                  </div>
+                  <div v-else-if="adsBanner.top_raw_manga.isImage == 0 && adsBanner.top_raw_manga.iframe">
+                    <div>
+                      <div v-html="adsBanner.top_raw_manga.iframe"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div>
                 <div>
                   <CateTittle class="mb-3"> Latest Raw manga</CateTittle>
@@ -111,6 +156,20 @@
 
 
             <div class="mt-5 mb-14" v-if="newProducts && newProducts.length > 0">
+              <div v-if="adsBanner" class="ads_banner">
+                <div v-if="adsBanner.top_new_manga">
+                  <div v-if="adsBanner.top_new_manga.isImage == 1 && adsBanner.top_new_manga.image">
+                    <a :href="adsBanner.top_new_manga.link" target="_blank" rel="noopener noreferrer">
+                      <NuxtImg :src="adsBanner.top_new_manga.image" width="500" loading="lazy" class="w-full" />
+                    </a>
+                  </div>
+                  <div v-else-if="adsBanner.top_new_manga.isImage == 0 && adsBanner.top_new_manga.iframe">
+                    <div>
+                      <div v-html="adsBanner.top_new_manga.iframe"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div>
                 <div>
                   <CateTittle class="mb-3"> New manga</CateTittle>
@@ -214,50 +273,78 @@
     </NuxtLayout>
   </div>
 </template>
-
 <script setup>
-const config = useRuntimeConfig();
-const vnwaStore = useMyVnwaStore()
+
+// Initialize references
+const vnwaStore = useMyVnwaStore();
 const vnwa = ref([]);
-await vnwaStore.fetchVnwaData()
-vnwa.value = vnwaStore.vnwa
-const highlightProducts = ref([])
-const loading = ref(true)
-const newUpdatedProducts = ref([])
-const newProducts = ref([])
-const rawProducts = ref([])
-const subProducts = ref([])
+const highlightProducts = ref([]);
+const newUpdatedProducts = ref([]);
+const newProducts = ref([]);
+const rawProducts = ref([]);
+const subProducts = ref([]);
+const adsBanner = ref([]);
+const loadingStore = useMyLoadingStore()
 
-const response = await fetch(`${config.public.apiBase}/get-data-home`);
+loadingStore.start();
 
-if (response.ok) {
-  const data = await response.json();
+// Fetch data when component is mounted
+onMounted(async () => {
+  try {
+    // Fetch data from store
+    await vnwaStore.fetchVnwaData();
+    vnwa.value = vnwaStore.vnwa;
 
-  highlightProducts.value = data.highlightProducts
-  newUpdatedProducts.value = data.newUpdatedProducts;
-  newProducts.value = data.newProducts;
-  rawProducts.value = data.rawProducts;
-  subProducts.value = data.subProducts;
+    // Fetch data from API
+    const config = useRuntimeConfig();
+    const response = await fetch(`${config.public.apiBase}/get-data-home`);
 
+    if (response.ok) {
+      const data = await response.json();
 
-  useServerSeoMeta({
-    ogTitle: () => data.meta.metaTitle,
-    title: () => data.meta.metaTitle,
-    description: () => data.meta.metaDesc,
-    ogDescription: () => data.meta.metaDesc,
-    ogImage: () => data.meta.metaImage,
-    ogImageUrl: () => data.meta.metaImage,
-    twitterCard: () => 'summary_large_image',
-    twitterTitle: () => data.meta.metaTitle,
-    twitterDescription: () => data.meta.metaDesc,
-    twitterImage: () => data.meta.metaImage
-  })
+      // Update the state with fetched data
+      highlightProducts.value = data.highlightProducts;
+      newUpdatedProducts.value = data.newUpdatedProducts;
+      newProducts.value = data.newProducts;
+      rawProducts.value = data.rawProducts;
+      subProducts.value = data.subProducts;
+      adsBanner.value = data.adsBanner;
 
-}else{
-  console.log(response)
-}
+      // Update SEO meta tags
+      useServerSeoMeta({
+        ogTitle: () => data.meta.metaTitle,
+        title: () => data.meta.metaTitle,
+        description: () => data.meta.metaDesc,
+        ogDescription: () => data.meta.metaDesc,
+        ogImage: () => data.meta.metaImage,
+        ogImageUrl: () => data.meta.metaImage,
+        twitterCard: () => 'summary_large_image',
+        twitterTitle: () => data.meta.metaTitle,
+        twitterDescription: () => data.meta.metaDesc,
+        twitterImage: () => data.meta.metaImage
+      });
 
+    } else {
+      console.error('Failed to fetch home data', response);
+    }
 
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  } finally {
+    loadingStore.stop();
+    // Set loading to false once data has been fetched
+  }
+
+});
 </script>
 
-<style></style>
+<style>
+.ads_banner {
+  margin-bottom: 10px;
+}
+
+.ads_banner iframe {
+  width: 100%;
+  max-height: 200px;
+}
+</style>

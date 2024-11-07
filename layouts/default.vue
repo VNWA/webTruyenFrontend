@@ -18,7 +18,7 @@
             <div class="lg:w-56 lg:h-full  w-auto h-8    flex items-center justify-center">
               <NuxtLink to="/" class="h-full">
                 <h3 v-if="!vnwa" class="text-white/80 font-bold text-xl">Manhwa18</h3>
-                <NuxtImg  alt="manhwa18" v-else-if="vnwa && vnwa.dataWeb" class="logo w-full h-auto max-h-full"
+                <NuxtImg alt="manhwa18" v-else-if="vnwa && vnwa.dataWeb" class="logo w-full h-auto max-h-full"
                   :src="vnwa.dataWeb.url_avatar_full" width="200" />
               </NuxtLink>
             </div>
@@ -58,7 +58,8 @@
                     </span>
                   </span>
                   <div class=" sub-menu z-10  absolute top-full left-0 bg-black/90">
-                    <ul class="grid grid-cols-12 gap-4 w-full p-5 " v-if="vnwa && vnwa.nations && vnwa.nations.length > 0">
+                    <ul class="grid grid-cols-12 gap-4 w-full p-5 "
+                      v-if="vnwa && vnwa.nations && vnwa.nations.length > 0">
                       <li class="col-span-4" v-for="item in vnwa.nations">
                         <NuxtLink :to="'/manga?nation=' + item.id"
                           class="text-base w-full text-white/80 flex items-center justif-start">
@@ -94,8 +95,8 @@
                 class="bg-white/90 text-black lg:w-10 lg:h-10 w-8 h-8 rounded-full flex items-center justify-center relative">
 
                 <icon name="fa6-solid:user" class="md:text-xl text-lg -z-1  text-black" />
-                <div v-if="customerStore.newNotificationsCount > 0"
-                  class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 "></div>
+                <div v-if="newNotificationsCount > 0" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 ">
+                </div>
               </button>
             </NuxtLink>
             <button aria-label="Show Modal Search"
@@ -229,59 +230,59 @@
 </template>
 
 <script setup>
-const vnwaStore = useMyVnwaStore()
-const vnwa = ref([]);
-
+const vnwaStore = useMyVnwaStore();
 const customerStore = useCustomerStore();
-const newNotificationCount = ref(0);
 const loadingStore = useMyLoadingStore();
-const isLoading = computed(() => loadingStore.isLoading);
-onMounted(() => {
-   vnwaStore.fetchVnwaData()
-vnwa.value = vnwaStore.vnwa
-  customerStore.loadCountNewNotification()
-  newNotificationCount.value = customerStore.newNotificationsCount
 
-
-})
-
+// Khai báo các biến
+const vnwa = ref([]);
+const newNotificationsCount = ref(0);
 const isMobileMenu = ref(false);
 const isSearchModal = ref(false);
+const showScrollButton = ref(false);
+const isLoading = computed(() => loadingStore.isLoading);
+
+// Tải dữ liệu khi component được mount
+const loadData = async () => {
+  await vnwaStore.fetchVnwaData();
+  vnwa.value = vnwaStore.vnwa;
+  customerStore.loadCountNewNotification();
+  newNotificationsCount.value = customerStore.newNotificationsCount;
+};
+
+// Thao tác với search modal
 const handleSearchModalClose = (newValue) => {
   console.log(newValue);
   isSearchModal.value = newValue;
 };
 
-
-
-
-const showScrollButton = ref(false)
-
+// Xử lý scroll button
 const handleScroll = () => {
-  const scrollPosition = window.scrollY
-  const scrollThreshold = 200
-  showScrollButton.value = scrollPosition > scrollThreshold
-}
+  const scrollPosition = window.scrollY;
+  const scrollThreshold = 200;
+  showScrollButton.value = scrollPosition > scrollThreshold;
+};
 
 const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
 
+// Nuxt hook để reset scroll khi load trang xong
+const nuxtApp = useNuxtApp();
+nuxtApp.hook('page:finish', () => {
+  window.scrollTo(0, 0);
+});
+
+// Khởi tạo các lifecycle hooks
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-
-
-
-})
+  loadData();
+  window.addEventListener('scroll', handleScroll);
+});
 
 onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
-const nuxtApp = useNuxtApp()
+  window.removeEventListener('scroll', handleScroll);
+});
 
-nuxtApp.hook("page:finish", () => {
-  window.scrollTo(0, 0)
-})
 </script>
 
 <style scoped>

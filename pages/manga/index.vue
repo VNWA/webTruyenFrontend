@@ -18,19 +18,18 @@
                   <div class="lg:flex items-center justify-start gap-4 text-white lg:text-base text-sm">
                     <label :for="'radio1'"
                       class="flex items-center justify-start gap-4 font-bold  px-1 py-2 cursor-pointer">
-                      <input type="radio" id="radio1" :value="0" v-model="is_complete"
-                        @change="handleFilterChange">
+                      <input type="radio" id="radio1" :value="0" v-model="is_complete" @change="handleFilterChange">
                       <span>In progress</span>
                     </label>
                     <label :for="'radio2'"
                       class="flex items-center justify-start gap-4 font-bold  px-1 py-2 cursor-pointer">
-                      <input type="radio" id="radio2" :value="1" v-model="is_complete"
-                        @change="handleFilterChange">
+                      <input type="radio" id="radio2" :value="1" v-model="is_complete" @change="handleFilterChange">
                       <span>Completed</span>
                     </label>
                   </div>
                   <div>
-                    <select v-model="arange" @change="handleFilterChange" class="lg:w-[200px] w-34 border px-3 py-2 lg:text-base text-sm">
+                    <select v-model="arange" @change="handleFilterChange"
+                      class="lg:w-[200px] w-34 border px-3 py-2 lg:text-base text-sm">
                       <option value="most-view">Most View</option>
                       <option value="most-favourite">Most Favourite </option>
                       <option value="a-z">A - Z</option>
@@ -40,88 +39,93 @@
                       <option value="new-created">New Created</option>
                       <option value="old-created">Old Created</option>
                     </select>
-                 <div class="lg:hidden block w-34 border px-3 py-1 mt-3 bg-cyan-500/50 text-white text-center" @click="isFilterMenu = true">
+                    <div class="lg:hidden block w-34 border px-3 py-1 mt-3 bg-cyan-500/50 text-white text-center"
+                      @click="isFilterMenu = true">
 
                       <Icon name="material-symbols:filter-alt-outline-sharp" class="text-2xl" />
-                   
-                 </div>
+
+                    </div>
                   </div>
                 </div>
               </div>
               <div v-if="loading" class="py-5 text-center text-white font-bold text-lg">Loading...</div>
               <div v-else>
-                <div v-if=" products.data && products.data.length>0">
-                <div  class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
-                <div class="col-span-1" v-for="item in products.data" :key="item.id">
-                  <ItemProductNormal :dataProduct="item" />
-                </div>
-              </div>
-              <div class="flex items-center justify-center mt-10 mb-3" v-if="products.last_page > 1">
+                <div v-if="products.data && products.data.length > 0">
+                  <div class="w-full grid lg:grid-cols-4 sm:grid-cols-4 grid-cols-2 gap-4">
+                    <div class="col-span-1" v-for="item in products.data" :key="item.id">
+                      <ItemProductNormal :dataProduct="item" />
+                    </div>
+                  </div>
+                  <div class="flex items-center justify-center mt-10 mb-3" v-if="products.last_page > 1">
 
-                <Pagination :urlPage="'/manga'" :totalPage="products.last_page" :current_page="products.current_page"
-                  @change-page="handleChangePage" />
+                    <Pagination :urlPage="'/manga'" :totalPage="products.last_page"
+                      :current_page="products.current_page" @change-page="handleChangePage" />
+                  </div>
+                </div>
+                <div v-else class="py-5 text-center text-white font-bold text-lg">No suitable manga found</div>
               </div>
-            </div>
-            <div v-else class="py-5 text-center text-white font-bold text-lg">No suitable manga found</div>
-              </div>
-             
+
             </div>
             <div class="lg:col-span-3 col-span-12 ">
-              <div  class="lg:block  lg:bg-white/0 bg-black lg:sticky fixed w-full h-screen top-0 left-0 p-3 overflow-auto" :class="{ 'block': isFilterMenu, 'hidden': !isFilterMenu }">
+              <div
+                class="lg:block  lg:bg-white/0 bg-black lg:sticky fixed w-full h-screen top-0 left-0 p-3 overflow-auto"
+                :class="{ 'block': isFilterMenu, 'hidden': !isFilterMenu }">
                 <div class="lg:hidden text-white flex items-center justify-between gap-4 py-3 mb-3">
-                  <h3 class="font-bold text-white text-xl">Filter</h3> <button @click="isFilterMenu = false"> <Icon name="material-symbols:close-rounded" class="text-white text-4xl" /> </button>
+                  <h3 class="font-bold text-white text-xl">Filter</h3> <button @click="isFilterMenu = false">
+                    <Icon name="material-symbols:close-rounded" class="text-white text-4xl" />
+                  </button>
                 </div>
-              <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
-                <h3 class="text-center font-bold  text-lg mb-3"> Categories</h3>
-                <hr class="my-3">
-                <div class="px-3">
+                <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
+                  <h3 class="text-center font-bold  text-lg mb-3"> Categories</h3>
+                  <hr class="my-3">
+                  <div class="px-3">
 
-                  <div class="mb-1" v-for="(item, index) in vnwa.categories" :key="index">
+                    <div class="mb-1" v-for="(item, index) in vnwa.categories" :key="index">
 
-                    <label :for="'checkbox' + item.id"
-                      class="flex items-center justify-start gap-4 font-bold text-base px-1 py-2 cursor-pointer">
-                      <input type="checkbox" :id="'checkbox'+ item.id" :value="item.id" v-model="selectedCategories"
-                        @change="handleFilterChange">
-                      <span>{{ item.name }}</span>
-                    </label>
+                      <label :for="'checkbox' + item.id"
+                        class="flex items-center justify-start gap-4 font-bold text-base px-1 py-2 cursor-pointer">
+                        <input type="checkbox" :id="'checkbox' + item.id" :value="item.id" v-model="selectedCategories"
+                          @change="handleFilterChange">
+                        <span>{{ item.name }}</span>
+                      </label>
+                    </div>
+
                   </div>
+                </div>
+                <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
+                  <h3 class="text-center font-bold  text-lg mb-3"> Nations</h3>
+                  <hr class="my-3">
+                  <div class="px-3">
 
+                    <div class="mb-1" v-for="(item, index) in vnwa.nations" :key="index">
+
+                      <label :for="'checkboxNation' + item.id"
+                        class="flex items-center justify-start gap-4 font-bold text-base px-1 py-2 cursor-pointer">
+                        <input type="checkbox" :id="'checkboxNation' + item.id" :value="item.id"
+                          v-model="selectedNations" @change="handleFilterChange">
+                        <span>{{ item.name }}</span>
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
+                  <h3 class="text-center font-bold  text-lg mb-3"> Types</h3>
+                  <hr class="my-3">
+                  <div class="px-3">
+                    <div class="mb-1" v-for="(item, index) in vnwa.dataType" :key="index">
+
+                      <label :id="'checkboxType' + item.id"
+                        class="flex items-center justify-start gap-4 font-bold text-base px-1 py-2 cursor-pointer">
+                        <input type="checkbox" :id="'checkboxType' + item.id" :value="item.id" v-model="selectedTypes"
+                          @change="handleFilterChange">
+                        <span>{{ item.name }}</span>
+                      </label>
+                    </div>
+
+                  </div>
                 </div>
               </div>
-              <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
-                <h3 class="text-center font-bold  text-lg mb-3"> Nations</h3>
-                <hr class="my-3">
-                <div class="px-3">
-
-                  <div class="mb-1" v-for="(item, index) in vnwa.nations" :key="index">
-
-                    <label :for="'checkboxNation' + item.id"
-                      class="flex items-center justify-start gap-4 font-bold text-base px-1 py-2 cursor-pointer">
-                      <input type="checkbox" :id="'checkboxNation'+ item.id" :value="item.id" v-model="selectedNations"
-                        @change="handleFilterChange">
-                      <span>{{ item.name }}</span>
-                    </label>
-                  </div>
-
-                </div>
-              </div>
-              <div class="border px-2 py-3 text-white  bg-black/60 mb-3">
-                <h3 class="text-center font-bold  text-lg mb-3"> Types</h3>
-                <hr class="my-3">
-                <div class="px-3">
-                  <div class="mb-1" v-for="(item, index) in vnwa.dataType" :key="index">
-
-                    <label :id="'checkboxType' + item.id"
-                      class="flex items-center justify-start gap-4 font-bold text-base px-1 py-2 cursor-pointer">
-                      <input type="checkbox" :id="'checkboxType' + item.id" :value="item.id" v-model="selectedTypes"
-                        @change="handleFilterChange">
-                      <span>{{ item.name }}</span>
-                    </label>
-                  </div>
-
-                </div>
-              </div>
-            </div>
             </div>
           </div>
         </div>
@@ -139,12 +143,15 @@ const router = useRouter();
 const vnwa = ref([]);
 const vnwaStore = useMyVnwaStore();
 const products = ref([]);
-const loading = ref(true);
+
 const selectedCategories = ref([]); // Lưu trữ các category đã chọn
 const selectedTypes = ref([])
 const selectedNations = ref([]);
-const arange =ref('new-updated')
-const is_complete =ref(0)
+const arange = ref('new-updated')
+const is_complete = ref(0)
+const loadingStore = useMyLoadingStore()
+
+loadingStore.start();
 // Fetch data lần đầu khi component mounted
 onMounted(() => {
   if (route.query.category) {
@@ -168,11 +175,13 @@ onMounted(() => {
   vnwaStore.fetchVnwaData();
   vnwa.value = vnwaStore.vnwa;
   fetchProducts(); // Lấy sản phẩm khi trang load lần đầu
+  loadingStore.stop();
 });
 
 // Hàm lấy dữ liệu sản phẩm từ API
 const fetchProducts = async (page = 1) => {
-  loading.value = true;
+loadingStore.start();
+ 
 
   const params = new URLSearchParams(route.query);
   const queryString = params.toString();
@@ -187,7 +196,8 @@ const fetchProducts = async (page = 1) => {
   } else {
     console.error(response);
   }
-  loading.value = false;
+  loadingStore.stop();
+
 };
 const handleFilterChange = () => {
   const query = {};
@@ -195,15 +205,15 @@ const handleFilterChange = () => {
   const types = selectedTypes.value;
   const nations = selectedNations.value;
 
-  
+
   // Chỉ thêm vào query nếu có giá trị
-  if (categories.length >0) {
+  if (categories.length > 0) {
     query.category = categories.join(','); // Nối các category bằng dấu phẩy
   }
-  if (types.length >0) {
+  if (types.length > 0) {
     query.type = types.join(','); // Nối các type bằng dấu phẩy
   }
-  if (nations.length >0) {
+  if (nations.length > 0) {
     query.nation = nations.join(','); // Nối các type bằng dấu phẩy
   }
   if (arange.value) {
@@ -211,11 +221,11 @@ const handleFilterChange = () => {
   }
   if (is_complete.value) {
     query.is_complete = is_complete.value; // Nối các type bằng dấu phẩy
-  }else{
+  } else {
     query.is_complete = 0; // Nối các type bằng dấu phẩy
 
   }
-  
+
 
   router.push({ query }); // Cập nhật URL
 };
