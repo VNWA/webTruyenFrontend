@@ -124,7 +124,19 @@
 
             </div>
           </div>
+          <div v-if="adsBannerProduct " class="ads_banner text-white">
+            <div v-if="adsBannerProduct.isImage == 1 && adsBannerProduct.image">
+              <a :href="adsBannerProduct.link" target="_blank" rel="noopener noreferrer">
+                <NuxtImg :src="adsBannerProduct.image" width="500" loading="lazy" class="w-full" />
 
+              </a>
+            </div>
+            <div v-else-if="adsBannerProduct.isImage == 0 && adsBannerProduct.iframe">
+              <div>
+                <AdBanner :content="adsBannerProduct.iframe" />
+              </div>
+            </div>
+          </div>
 
           <div class="w-full border-y-4 border-solid border-white/20 py-3 mb-4">
             <div class=" flex items-center justify-start gap-6 mb-5">
@@ -221,6 +233,7 @@ const isComment = ref(false);
 const customerStore = useCustomerStore();
 const count_wishlist = ref(0)
 const isBookmark = ref(false);
+const adsBannerProduct = ref([]);
 
 const loadData = async () => {
   const response = await fetch(config.public.apiBase + '/' + 'get-detail-product/' + route.params.slug);
@@ -241,6 +254,9 @@ const loadData = async () => {
     })
 
     product.value = data.product
+    adsBannerProduct.value = data.adsBannerProduct
+
+    
     const storyData = {
       id: product.value.id,
       name: product.value.name,
@@ -290,7 +306,7 @@ onMounted(async () => {
   await loadData();
   await fetch(config.public.apiBase + '/' + 'increment-views/' + route.params.slug)
   await updateCountWishlist()
-loadingStore.stop();
+  loadingStore.stop();
 
 })
 

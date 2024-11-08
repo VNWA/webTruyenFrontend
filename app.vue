@@ -2,6 +2,8 @@
   <div class="h-screen">
     <NuxtLoadingIndicator />
     <NuxtPage />
+  
+
   </div>
 
 
@@ -11,6 +13,8 @@
 useHead({
 
   script: [
+    { src: 'https://cdn.tsyndicate.com/sdk/v1/n.js', body: true },
+    { src: 'https://platform.bidgear.com/pubbidgear-ad.js', body: true },
     { src: '//cdn.tsyndicate.com/sdk/v1/video.instant.message.js', body: true },
     {
       children: `

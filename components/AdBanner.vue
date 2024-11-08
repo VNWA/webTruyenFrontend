@@ -1,6 +1,6 @@
 <template>
   <div class="ads_banner">
-    <div ref="bannerContainer" v-html="content"></div>
+    <div ref="bannerContainer" v-html="cleanedContent"></div>
   </div>
 </template>
 
@@ -12,34 +12,51 @@ export default {
       required: true,
     },
   },
+  computed: {
+    // Loại bỏ các script khỏi content để chúng không tự động chạy
+    cleanedContent() {
+      return this.content.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+    },
+  },
   mounted() {
     if (process.client) {
-      // Lấy các script từ nội dung HTML
       this.$nextTick(() => {
-        const scripts = this.$refs.bannerContainer.querySelectorAll("script");
-        scripts.forEach((oldScript) => {
-          const newScript = document.createElement("script");
-          newScript.innerHTML = oldScript.innerHTML;
-          // Copy thuộc tính của script gốc sang script mới
-          Array.from(oldScript.attributes).forEach(attr =>
-            newScript.setAttribute(attr.name, attr.value)
-          );
-          // Gắn script mới vào DOM
-          oldScript.parentNode.replaceChild(newScript, oldScript);
-        });
+        this.loadExternalScript("//cdn.tsyndicate.com/sdk/v1/n.js")
+          .then(() => this.executeInlineScripts())
+          .catch((error) => console.error("Lỗi khi tải script:", error));
       });
     }
+  },
+  methods: {
+    loadExternalScript(src) {
+      return new Promise((resolve, reject) => {
+        // Kiểm tra nếu script từ CDN đã tồn tại
+        if (document.querySelector(`script[src="${src}"]`)) {
+          resolve();
+        } else {
+          const script = document.createElement("script");
+          script.src = src;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.body.appendChild(script);
+        }
+      });
+    },
+    executeInlineScripts() {
+      // Tìm và thực thi các script nội bộ từ nội dung HTML
+      const scripts = this.content.match(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi) || [];
+      scripts.forEach((scriptTag) => {
+        const inlineScript = document.createElement("script");
+        inlineScript.innerHTML = scriptTag.replace(/<script\b[^>]*>|<\/script>/gi, "");
+        document.body.appendChild(inlineScript);
+      });
+    },
   },
 };
 </script>
 
 <style scoped>
 .ads_banner {
-  margin-bottom: 10px;
-}
-
-.ads_banner iframe {
-  width: 100%;
-  max-height: 200px;
+  /* Tùy chỉnh CSS nếu cần */
 }
 </style>

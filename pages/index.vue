@@ -86,7 +86,7 @@
                   </div>
                   <div v-else-if="adsBanner.top_raw_manga.isImage == 0 && adsBanner.top_raw_manga.iframe">
                     <div>
-                      <div v-html="adsBanner.top_raw_manga.iframe"></div>
+                      <AdBanner :content="adsBanner.top_raw_manga.iframe" />
                     </div>
                   </div>
                 </div>
@@ -165,7 +165,7 @@
                   </div>
                   <div v-else-if="adsBanner.top_new_manga.isImage == 0 && adsBanner.top_new_manga.iframe">
                     <div>
-                      <div v-html="adsBanner.top_new_manga.iframe"></div>
+                      <AdBanner :content="adsBanner.top_new_manga.iframe" />
                     </div>
                   </div>
                 </div>
