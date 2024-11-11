@@ -124,7 +124,7 @@
 
             </div>
           </div>
-          <div v-if="adsBannerProduct " class="ads_banner text-white">
+          <div v-if="adsBannerProduct" class="ads_banner text-white">
             <div v-if="adsBannerProduct.isImage == 1 && adsBannerProduct.image">
               <a :href="adsBannerProduct.link" target="_blank" rel="noopener noreferrer">
                 <NuxtImg :src="adsBannerProduct.image" width="500" loading="lazy" class="w-full" />
@@ -148,15 +148,15 @@
 
             <div class="overflow-y-scroll lg:max-h-[400px] max-h-[300px]">
               <ul class="lg:px-10 px-2 dri">
-                <li v-for="item in product.episodes" class="mb-3">
+                <li v-for="item in product.episodes" :key="item.slug" class="mb-3 text-white">
                   <NuxtLink :to="'/manga/' + product.slug + '/' + item.slug"
-                    class=" text-white hover:text-sky-600 lg:px-3 px-1 h-12 block py-1">
-                    <div class="flex items-center justify-between gap-4 border-b border-solid boder-gray-800  py-1">
-                      <h4> {{ item.name }}</h4>
-                      <h5 class="text-gray-500 lg:text-sm text-xs  uppercase">{{ item.update_time }}</h5>
+                    :class="{ 'text-gray-500': historyStore.isChapterViewed('/manga/' + product.slug + '/' + item.slug) }"
+                    class="hover:text-sky-600 lg:px-3 px-1 h-12 block py-1">
+                    <div class="flex items-center justify-between gap-4 border-b border-solid border-gray-800 py-1">
+                      <h4>{{ item.name }}</h4>
+                      <h5 class="text-gray-500 lg:text-sm text-xs uppercase">{{ item.update_time }}</h5>
                     </div>
                   </NuxtLink>
-
                 </li>
               </ul>
 
@@ -228,7 +228,7 @@ const vnwaStore = useMyVnwaStore()
 const config = useRuntimeConfig();
 const route = useRoute();
 const loadingStore = useMyLoadingStore()
-const myHistoryStore = useMyHistoryStore() // Khởi tạo store
+const historyStore = useMyHistoryStore() // Khởi tạo store
 const isComment = ref(false);
 const customerStore = useCustomerStore();
 const count_wishlist = ref(0)
@@ -256,14 +256,14 @@ const loadData = async () => {
     product.value = data.product
     adsBannerProduct.value = data.adsBannerProduct
 
-    
+
     const storyData = {
       id: product.value.id,
       name: product.value.name,
       slug: product.value.slug,
       url_avatar: product.value.url_avatar
     }
-    myHistoryStore.addToHistory(storyData)
+    historyStore.addToHistory(storyData)
 
   } else {
     console.error(response)

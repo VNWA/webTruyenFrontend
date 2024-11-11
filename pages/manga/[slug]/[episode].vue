@@ -164,15 +164,14 @@ const adsBannerEnd = ref([])
 const adsBannerMiddle = ref([])
 const adsBannerTop = ref([])
 
-
+const historyStore = useMyHistoryStore();
 
 const response = await fetch(config.public.apiBase + '/' + 'get-episode/' + route.params.slug + '/' + route.params.episode);
 const isComment = ref(false);
-onMounted(() => {
-  isComment.value = true;
-})
+
 const pageIndex = ref(0)
 const pageContent = ref([])
+const router = useRouter();
 
 if (response.ok) {
   const data = await response.json();
@@ -213,11 +212,16 @@ if (response.ok) {
 } else {
   console.error(response)
 }
-const router = useRouter();
 const changeEpisode = () => {
   router.push('/manga/' + route.params.slug + '/' + selected.value)
 }
-
+onMounted(() => {
+  const currentChapterUrl = route.fullPath;
+  if (!historyStore.isChapterViewed(currentChapterUrl)) {
+    historyStore.addChapterUrl(currentChapterUrl);
+  }
+  isComment.value = true;
+});
 </script>
 
 <style></style>

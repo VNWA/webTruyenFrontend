@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export interface Story {
   id: number;
@@ -15,39 +15,56 @@ export interface Story {
 export const useMyHistoryStore = defineStore({
   id: 'myHistoryStore',
   state: () => ({
-    history: [] as Story[]
+    history: [] as Story[],
+    viewedChapters: [] as string[] // Mảng chứa các URL của chapter đã xem
   }),
   getters: {
-    getHistory: (state) => {
-      return state.history;
+    isChapterViewed: (state) => (chapterUrl: string) => {
+      return state.viewedChapters.includes(chapterUrl);
     },
+    getHistory: (state) => state.history,
     getLatestStories: (state) => {
-      // Sắp xếp danh sách theo timestamp giảm dần (mới nhất trước)
       return [...state.history].sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
     }
-    
   },
   actions: {
+    addChapterUrl(chapterUrl: string) {
+      if (!this.viewedChapters.includes(chapterUrl)) {
+        this.viewedChapters.push(chapterUrl);
+        this.saveChapterViewToLocalStorage();
+      }
+    },
+    loadChapterViewFromLocalStorage() {
+      if (process.client) {
+        try {
+          const storedChapters = JSON.parse(localStorage.getItem('viewedChapters') || '[]');
+          this.viewedChapters = storedChapters;
+        } catch (error) {
+          console.error('Failed to load viewed chapters from localStorage:', error);
+        }
+      }
+    },
+    saveChapterViewToLocalStorage() {
+      if (process.client) {
+        localStorage.setItem('viewedChapters', JSON.stringify(this.viewedChapters));
+      }
+    },
     addToHistory(story: Omit<Story, 'viewChapter'>, chapter?: { name: string; slug: string }) {
       const exists = this.history.find(item => item.id === story.id);
-
-      // Tạo đối tượng story với đầy đủ các trường
       const newStory: Story = {
         ...story,
-        viewChapter: chapter || { name: '', slug: '' }, // Nếu không có chapter, để trống
-        timestamp: Date.now() // Cập nhật timestamp
+        viewChapter: chapter || { name: '', slug: '' },
+        timestamp: Date.now()
       };
 
       if (!exists) {
-        // Nếu không tồn tại, thêm mới
         this.history.push(newStory);
       } else {
-        // Nếu tồn tại, chỉ cập nhật timestamp và viewChapter
         exists.viewChapter = chapter || { name: '', slug: '' };
-        exists.timestamp = Date.now(); // Cập nhật timestamp
+        exists.timestamp = Date.now();
       }
 
-      this.saveToLocalStorage();
+      this.saveHistoryToLocalStorage();
     },
     clearHistory() {
       this.history = [];
@@ -57,7 +74,7 @@ export const useMyHistoryStore = defineStore({
     },
     removeFromHistory(storyId: number) {
       this.history = this.history.filter(item => item.id !== storyId);
-      this.saveToLocalStorage();
+      this.saveHistoryToLocalStorage();
     },
     loadHistory() {
       if (process.client) {
@@ -69,10 +86,14 @@ export const useMyHistoryStore = defineStore({
         }
       }
     },
-    saveToLocalStorage() {
+    saveHistoryToLocalStorage() {
       if (process.client) {
         localStorage.setItem('history', JSON.stringify(this.history));
       }
+    },
+    loadFromLocalStorage() {
+      this.loadChapterViewFromLocalStorage();
+      this.loadHistory();
     }
   }
 });
